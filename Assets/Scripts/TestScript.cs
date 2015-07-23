@@ -2,7 +2,7 @@
 
 public class TestScript : MonoBehaviour 
 {
-    public void TestMethod()
+    public void Dupa()
     {
         
     }
