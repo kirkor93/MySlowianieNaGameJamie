@@ -30,6 +30,11 @@ public class GameManager : Singleton<GameManager>
     
     private void Update()
     {
+        if(VillageController.Instance.VillageHP == 0 )
+        {
+            Debug.LogWarning("Game Over");
+            Debug.Break();
+        }
         _collectPeriodTimer += Time.deltaTime;
         if(Period == GamePeriod.Collect)
         {
