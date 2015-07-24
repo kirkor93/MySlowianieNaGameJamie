@@ -4,6 +4,7 @@ using System.Collections;
 public class Bullet : MonoBehaviour {
 
     protected GameObject _target;
+    protected Enemy _targetEnemyScript;
     protected float _damage;
 
     private Vector3 _initPosition;
@@ -18,14 +19,21 @@ public class Bullet : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.Lerp(_initPosition, _target.transform.position, _timer);
-        _timer += Time.deltaTime;
-        if (_timer >= 1.0f)
+        if (_targetEnemyScript.IsDead)
         {
-            //Decrease health;
-            Debug.Log(_damage);
-            OnDamage();
-            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(_initPosition, _target.transform.position, _timer);
+            _timer += Time.deltaTime;
+            if (_timer >= 1.0f)
+            {
+                _targetEnemyScript.DecreaseHealth(_damage);
+                Debug.Log(_damage);
+                OnDamage();
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -37,6 +45,7 @@ public class Bullet : MonoBehaviour {
 	void SetTarget(GameObject target)
     {
         _target = target;
+        _targetEnemyScript = _target.GetComponent<Enemy>();
     }
 
     void SetDamage(float damage)
