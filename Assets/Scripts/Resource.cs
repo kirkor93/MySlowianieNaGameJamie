@@ -38,7 +38,21 @@ public class Resource : MonoBehaviour {
     public void Collect()
     {
         _aButton.SetActive(false);
-        //TO DO Increase resources value
+        switch(Type)
+        {
+            case ResourceType.Food:
+                VillageController.Instance.IncreaseFood(1);
+                break;
+            case ResourceType.Iron:
+                VillageController.Instance.IncreaseIron(1);
+                break;
+            case ResourceType.Stone:
+                VillageController.Instance.IncreaseStone(1);
+                break;
+            case ResourceType.Wood:
+                VillageController.Instance.IncreaseWood(1);
+                break;
+        }
         Destroy(this.gameObject);
     }
      

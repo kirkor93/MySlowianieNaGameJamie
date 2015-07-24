@@ -10,6 +10,10 @@ public class Enemy : MonoBehaviour
     protected bool _playerInSight = false;
     protected bool _playerReallyClose = false;
 
+    protected float _hp;
+
+    public bool IsDead { get; protected set; }
+
 	// Use this for initialization
 	void Start () 
     {
@@ -20,6 +24,11 @@ public class Enemy : MonoBehaviour
         }
         _myAgent.SetDestination(Vector3.zero);
 	}
+
+    void OnEnable()
+    {
+        _hp = 50.0f;
+    }
 	
 	// Update is called once per frame
 	void Update () 
@@ -47,6 +56,21 @@ public class Enemy : MonoBehaviour
             }
         }
 	}
+
+    public void DecreaseHealth(float dmg)
+    {
+        _hp -= dmg;
+        if(_hp <= 0.0f)
+        {
+            _myAgent.Stop();
+            _target = null;
+            GetComponent<Collider>().enabled = false;
+            _playerInSight = false;
+            _playerReallyClose = false;
+            IsDead = true;
+            Destroy(gameObject, 1.0f);
+        }
+    }
 
     public void OnTriggerEnter(Collider col)
     {
