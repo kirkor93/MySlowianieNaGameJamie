@@ -5,9 +5,11 @@ public class Resource : MonoBehaviour {
 
     public ResourceType Type;
 
+    private GameObject _aButton;
+
 	// Use this for initialization
 	void Start () {
-	
+        _aButton = transform.GetChild(0).gameObject;
 	}
 	
 	// Update is called once per frame
@@ -19,9 +21,7 @@ public class Resource : MonoBehaviour {
     {
         if(col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            //TO DO Show A button sprite
-            //Delete debug when completed
-            Debug.Log("Press A");
+            _aButton.SetActive(true);
             col.gameObject.GetComponent<PlayerController>().SetResourceInRange(this);
         }
     }
@@ -30,14 +30,14 @@ public class Resource : MonoBehaviour {
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            _aButton.SetActive(false);
             col.gameObject.GetComponent<PlayerController>().UnsetResourceInRange();
         }
     }
 
     public void Collect()
     {
-        //Delete this debug
-        Debug.Log("Collected");
+        _aButton.SetActive(false);
         //TO DO Increase resources value
         Destroy(this.gameObject);
     }
