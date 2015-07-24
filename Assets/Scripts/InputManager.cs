@@ -22,4 +22,19 @@ public class InputManager : Singleton<InputManager> {
     {
         return Input.GetButtonDown("ActionButton");
     }
+
+    public bool GetXButton()
+    {
+        return Input.GetButtonDown("MortarButton");
+    }
+
+    public bool GetYButton()
+    {
+        return Input.GetButtonDown("CannonButton");
+    }
+
+    public bool GetBButton()
+    {
+        return Input.GetButtonDown("TowerButton");
+    }
 }
