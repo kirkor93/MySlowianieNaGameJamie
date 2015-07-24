@@ -11,6 +11,8 @@ public enum TowerKindEnum
 
 public class TowerSlot : MonoBehaviour
 {
+    public GameObject AButton;
+
     public GameObject Tower;
     public GameObject Cannon;
     public GameObject Mortar;
@@ -25,9 +27,9 @@ public class TowerSlot : MonoBehaviour
 
     void Update()
     {
-        //if(_isPlayerCloseEnough)
+        if(_isPlayerCloseEnough)
         {
-            if(Input.GetKey(KeyCode.B))
+            if(InputManager.Instance.GetAButton())
             {
                 switch(_towerKind)
                 {
@@ -94,11 +96,22 @@ public class TowerSlot : MonoBehaviour
 
     public void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.layer == GameManager.Instance.PlayerLayer)
+        if(col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             _isPlayerCloseEnough = true;
-            Debug.Log("Hello");
-            //Turn on A button image
+            AButton.SetActive(true);
+        }
+    }
+
+    public void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            _isPlayerCloseEnough = false;
+            AButton.SetActive(false);
+            TowerCard.gameObject.SetActive(false);
+            CannonCard.gameObject.SetActive(false);
+            MortarCard.gameObject.SetActive(false);
         }
     }
 }
