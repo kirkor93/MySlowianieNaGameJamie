@@ -23,6 +23,7 @@ public class Bullet : MonoBehaviour {
         if (_timer >= 1.0f)
         {
             //Decrease health;
+            Debug.Log(_damage);
             OnDamage();
             gameObject.SetActive(false);
         }
