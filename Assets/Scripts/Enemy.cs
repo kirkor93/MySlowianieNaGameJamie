@@ -116,6 +116,7 @@ public class Enemy : MonoBehaviour
         _hp -= dmg;
         if(_hp <= 0.0f)
         {
+            GameManager.Instance.EnemiesCount -= 1;
             _myAgent.Stop();
             _playerTarget = null;
             _gateTarget = null;

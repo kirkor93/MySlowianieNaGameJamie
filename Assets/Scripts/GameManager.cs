@@ -3,14 +3,14 @@ using System.Collections;
 
 public class GameManager : Singleton<GameManager>
 {
-    [HideInInspector]
+    //[HideInInspector]
     public GamePeriod Period;
 
     public delegate void GamePeriodDelegate();
     public event GamePeriodDelegate OnGamePeriodChange;
 
     //Collect
-    public float CollectPeriodDuration = 0.0f;
+    public float CollectPeriodDuration = 5.0f;
     public float CollectDurationPerPeriod = 0.0f;
 
     private float _collectPeriodTimer = 0.0f;
@@ -20,28 +20,31 @@ public class GameManager : Singleton<GameManager>
     public int WaveCounter = 0;
     [HideInInspector]
     public int EnemiesCount = 0;
-    public int BaseEnemiesCount = 0;
-    public int EnemiesIncreasePerWaveValue = 0;
+    public int BaseEnemiesCount = 1;
+    public int EnemiesIncreasePerWaveValue = 1;
 
     private void Start()
     {
+
         EnemiesCount = BaseEnemiesCount;
     }
     
     private void Update()
     {
-        if(VillageController.Instance.VillageHP == 0 )
+        if(VillageController.Instance.VillageHP <= 0 )
         {
             Debug.LogWarning("Game Over");
             Debug.Break();
         }
-        _collectPeriodTimer += Time.deltaTime;
         if(Period == GamePeriod.Collect)
         {
+            _collectPeriodTimer += Time.deltaTime;
             if(_collectPeriodTimer > CollectPeriodDuration)
             {
+                Period = GamePeriod.Defense;
                 WaveCounter += 1;
                 EnemiesCount = BaseEnemiesCount + EnemiesIncreasePerWaveValue * BaseEnemiesCount;
+                if (WaveCounter == 1) EnemiesCount = 1;
                 OnGamePeriodChange();
             }
         }
@@ -49,7 +52,9 @@ public class GameManager : Singleton<GameManager>
         {
             if(EnemiesCount == 0)
             {
+                Period = GamePeriod.Collect;
                 _collectPeriodTimer = 0.0f;
+                CollectDurationPerPeriod = float.MaxValue;
                 OnGamePeriodChange();
             }
         }

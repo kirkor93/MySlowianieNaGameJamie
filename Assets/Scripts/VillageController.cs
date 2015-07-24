@@ -58,8 +58,10 @@ public class VillageController : Singleton<VillageController> {
     }
 
 	// Use this for initialization
-	void Start () {
-	
+    public override void Awake()
+    {
+        base.Awake();
+        VillageHP = 10.0f;
 	}
 	
 	// Update is called once per frame
