@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour {
             //Decrease health;
             Debug.Log(_damage);
             OnDamage();
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 

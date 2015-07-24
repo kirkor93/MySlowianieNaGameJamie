@@ -38,10 +38,8 @@ public class Tower : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("Try attack");
         if (_enemy == null)
         {
-            Debug.Log("Nothing to attack");
             return;
         }
         GameObject bullet = Instantiate(BulletPrefab, this.transform.position, BulletPrefab.transform.rotation) as GameObject;
@@ -51,6 +49,7 @@ public class Tower : MonoBehaviour
 
     protected void OnTriggerEnter(Collider col)
     {
+        Debug.Log("Hello");
         if(_enemy != null)
         {
             return;
