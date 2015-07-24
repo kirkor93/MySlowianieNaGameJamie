@@ -431,7 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ddeaa23c85f274d9a35e91a1550b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 0
+  _damage: 15
   _attackCooldown: 2
   BulletPrefab: {fileID: 143856, guid: ee7109e1b930251408cc8f2bd8145a41, type: 2}
 --- !u!114 &11449740
@@ -495,8 +495,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ddeaa23c85f274d9a35e91a1550b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 0
-  _attackCooldown: 2
+  _damage: 10
+  _attackCooldown: 3
   BulletPrefab: {fileID: 169296, guid: a0658fe7b7ecd1a41a293f6620bd6925, type: 2}
 --- !u!114 &11491338
 MonoBehaviour:
@@ -509,7 +509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ddeaa23c85f274d9a35e91a1550b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 0
+  _damage: 5
   _attackCooldown: 1
   BulletPrefab: {fileID: 160472, guid: 5daaf683d34e7404fa9901b4f0a16787, type: 2}
 --- !u!114 &11498524
