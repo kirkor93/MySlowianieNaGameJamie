@@ -12,6 +12,8 @@ public class Tower : MonoBehaviour
     [SerializeField]
     protected float _attackCooldown;
 
+    public GameObject BulletPrefab;
+
     public float Damage
     {
         get { return _damage; }
@@ -28,6 +30,12 @@ public class Tower : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        _timer = 0.0f;
+        _enemy = null;
+    }
+
     public void Attack()
     {
         Debug.Log("Try attack");
@@ -36,8 +44,9 @@ public class Tower : MonoBehaviour
             Debug.Log("Nothing to attack");
             return;
         }
-        Debug.Log("Attack");
-        //Attack this fucking enemy
+        GameObject bullet = Instantiate(BulletPrefab, this.transform.position, BulletPrefab.transform.rotation) as GameObject;
+        bullet.SendMessage("SetTarget", _enemy);
+        bullet.SendMessage("SetDamage", _damage);
     }
 
     protected void OnTriggerEnter(Collider col)
@@ -46,7 +55,7 @@ public class Tower : MonoBehaviour
         {
             return;
         }
-        else if (col.gameObject.layer == GameManager.Instance.EnemyLayer)
+        else if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             _enemy = col.gameObject;
         }
