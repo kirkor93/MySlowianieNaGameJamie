@@ -11,8 +11,6 @@ public class Tower : MonoBehaviour
     protected float _damage;
     [SerializeField]
     protected float _attackCooldown;
-    [SerializeField]
-    protected LayerMask _enemyLayer;
 
     public float Damage
     {
@@ -48,7 +46,7 @@ public class Tower : MonoBehaviour
         {
             return;
         }
-        else if (col.gameObject.layer == _enemyLayer)
+        else if (col.gameObject.layer == GameManager.Instance.EnemyLayer)
         {
             _enemy = col.gameObject;
         }
