@@ -7,9 +7,12 @@ public class Resource : MonoBehaviour {
 
     private GameObject _aButton;
 
+    private bool _canCollect = true;
+
 	// Use this for initialization
 	void Start () {
         _aButton = transform.GetChild(0).gameObject;
+        GameManager.Instance.OnGamePeriodChange += OnChangePeriod;
 	}
 	
 	// Update is called once per frame
@@ -17,9 +20,18 @@ public class Resource : MonoBehaviour {
 	
 	}
 
+    private void OnChangePeriod()
+    {
+        _canCollect = !_canCollect;
+        if(!_canCollect)
+        {
+            _aButton.SetActive(false);
+        }
+    }
+
     void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if(_canCollect && col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             _aButton.SetActive(true);
             col.gameObject.GetComponent<PlayerController>().SetResourceInRange(this);
@@ -28,7 +40,7 @@ public class Resource : MonoBehaviour {
 
     void OnTriggerExit(Collider col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (_canCollect && col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             _aButton.SetActive(false);
             col.gameObject.GetComponent<PlayerController>().UnsetResourceInRange();
@@ -41,18 +53,19 @@ public class Resource : MonoBehaviour {
         switch(Type)
         {
             case ResourceType.Food:
-                VillageController.Instance.IncreaseFood(1);
+                VillageController.Instance.FoodValue += 1;
                 break;
             case ResourceType.Iron:
-                VillageController.Instance.IncreaseIron(1);
+                VillageController.Instance.IronValue += 1;
                 break;
             case ResourceType.Stone:
-                VillageController.Instance.IncreaseStone(1);
+                VillageController.Instance.StoneValue += 1;
                 break;
             case ResourceType.Wood:
-                VillageController.Instance.IncreaseWood(1);
+                VillageController.Instance.WoodValue += 1;
                 break;
         }
+        GameManager.Instance.OnGamePeriodChange -= OnChangePeriod;
         Destroy(this.gameObject);
     }
      

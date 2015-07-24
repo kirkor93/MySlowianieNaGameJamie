@@ -6,11 +6,22 @@ public class Enemy : MonoBehaviour
 {
     protected NavMeshAgent _myAgent;
 
-    protected GameObject _target;
+    protected GameObject _gateTarget;
+    protected Gate _targetGateScript;
+
+    protected GameObject _playerTarget;
+    protected PlayerController _playerControllerScript;
+
     protected bool _playerInSight = false;
-    protected bool _playerReallyClose = false;
+    protected bool _playerClose = false;
+
+    protected bool _gateInSight = false;
+    protected bool _gateClose = false;
 
     protected float _hp;
+
+    protected float _attackTimer = 0.0f;
+    protected float _attackCooldown = 1.0f;
 
     public bool IsDead { get; protected set; }
 
@@ -33,29 +44,72 @@ public class Enemy : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-	    if(_playerInSight)
+        if(_gateInSight && _gateTarget != null)
         {
-            if(_playerReallyClose)
+            if(_gateClose)
             {
-                Debug.Log("Attack this motherfucker!");
-                Vector3 lookPos = _target.transform.position - transform.position;
+                StopNavMeshAgent();
+                if(_attackTimer >= _attackCooldown)
+                {
+                    _attackTimer = 0.0f;
+                    _targetGateScript.DecreaseHealth(100.0f);
+                    if(_targetGateScript.IsDestroyed)
+                    {
+                        Destroy(_targetGateScript.gameObject);
+                        _gateClose = false;
+                        _myAgent.SetDestination(Vector3.zero);
+                        _gateInSight = false;
+                    }
+                }
+                _attackTimer += Time.deltaTime;
+            }
+            else
+            {
+                _myAgent.SetDestination(_gateTarget.transform.position);
+                _myAgent.speed = 3.5f;
+                if(Vector3.Distance(transform.position, _gateTarget.transform.position) < 2.0f)
+                {
+                    _myAgent.SetDestination(transform.position);
+                    _gateClose = true;
+                }
+            }
+            return;
+        }
+
+	    if(_playerInSight && _playerTarget != null)
+        {
+            if(_playerClose)
+            {
+                Vector3 lookPos = _playerTarget.transform.position - transform.position;
+                StopNavMeshAgent();
+                if(_attackTimer >= _attackCooldown)
+                {
+                    _attackTimer = 0.0f;
+                    //Attack player
+                }
+                _attackTimer += Time.deltaTime;
                 if(lookPos.magnitude >= 2.5f)
                 {
-                    _playerReallyClose = false;
-                    _myAgent.Resume();
+                    _playerClose = false;
                 }
             }
             else
             {
-                _myAgent.SetDestination(_target.transform.position);
-                if((_target.transform.position - transform.position).magnitude < 2.0f)
+                _myAgent.SetDestination(_playerTarget.transform.position);
+                _myAgent.speed = 3.5f;
+                if ((_playerTarget.transform.position - transform.position).magnitude < 2.0f)
                 {
-                    _myAgent.Stop();
-                    _playerReallyClose = true;
+                    _playerClose = true;
                 }
             }
         }
 	}
+
+    void StopNavMeshAgent()
+    {
+        _myAgent.speed = 0.0f;
+        _myAgent.velocity = Vector3.zero;
+    }
 
     public void DecreaseHealth(float dmg)
     {
@@ -63,10 +117,13 @@ public class Enemy : MonoBehaviour
         if(_hp <= 0.0f)
         {
             _myAgent.Stop();
-            _target = null;
+            _playerTarget = null;
+            _gateTarget = null;
             GetComponent<Collider>().enabled = false;
             _playerInSight = false;
-            _playerReallyClose = false;
+            _playerClose = false;
+            _gateInSight = false;
+            _gateClose = false;
             IsDead = true;
             Destroy(gameObject, 1.0f);
         }
@@ -74,24 +131,54 @@ public class Enemy : MonoBehaviour
 
     public void OnTriggerEnter(Collider col)
     {
+        if(col.gameObject.layer == LayerMask.NameToLayer("Gate"))
+        {
+            _attackTimer = 0.0f;
+            _gateTarget = col.gameObject;
+            _gateInSight = true;
+            _gateClose = false;
+            _targetGateScript = _gateTarget.GetComponent<Gate>();
+        }
+        
         if(col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            _target = col.gameObject;
+            _attackTimer = 0.0f;
+            _playerTarget = col.gameObject;
             _playerInSight = true;
-            _playerReallyClose = false;
-            //_myAgent.Stop();
+            _playerClose = false;
+            _playerControllerScript = _playerTarget.GetComponent<PlayerController>();
+        }
+        
+        if(col.gameObject.layer == LayerMask.NameToLayer("CityHall"))
+        {
+            //City hall attack
+            _attackTimer = 0.0f;
         }
     }
 
     public void OnTriggerExit(Collider col)
     {
+        if(_gateTarget != null)
+        {
+            return;
+        }
+
+        if(col.gameObject.layer == LayerMask.NameToLayer("Gate"))
+        {
+            _attackTimer = 0.0f;
+            _gateTarget = null;
+            _gateInSight = false;
+            _gateClose = false;
+            _myAgent.SetDestination(Vector3.zero);
+        }
+
         if(col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            _target = null;
+            _attackTimer = 0.0f;
+            _playerTarget = null;
             _playerInSight = false;
-            _playerReallyClose = false;
+            _playerClose = false;
             _myAgent.SetDestination(Vector3.zero);
-            //_myAgent.Resume();
         }
     }
 }

@@ -7,9 +7,13 @@ public class PlayerController : MonoBehaviour {
 
     private bool _resourceInRange = false;
 
+    private bool _collectPeriod = true;
+
     private Rigidbody _myRigidbody;
 
     private Resource _currentResource;
+
+    private GameObject _weapon;
 
     public bool ResourceInRange
     {
@@ -20,7 +24,14 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         _myRigidbody = GetComponent<Rigidbody>();
+        _weapon = transform.GetChild(0).gameObject;
+        GameManager.Instance.OnGamePeriodChange += OnPeriodChange;
 	}
+
+    private void OnPeriodChange()
+    {
+        _collectPeriod = !_collectPeriod;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -28,15 +39,30 @@ public class PlayerController : MonoBehaviour {
         _myRigidbody.velocity = Vector3.zero;
 
         transform.position += InputManager.Instance.GetLeftStick() * Time.deltaTime * SpeedMultiplier;
-	    if(_resourceInRange)
+        if(_collectPeriod)
+        {
+	        if(_resourceInRange)
+            {
+                if(InputManager.Instance.GetAButton())
+                {
+                    _currentResource.Collect();
+                    _resourceInRange = false;
+                    _currentResource = null;
+                }
+            }
+        }
+        else
         {
             if(InputManager.Instance.GetAButton())
             {
-                _currentResource.Collect();
-                _resourceInRange = false;
-                _currentResource = null;
+                Attack();
             }
         }
+    }
+
+    private void Attack()
+    {
+        Debug.Log("Attack");
     }
 
     public void SetResourceInRange(Resource res)
