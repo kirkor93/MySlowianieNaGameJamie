@@ -31,7 +31,6 @@ public class TowerSlot : MonoBehaviour
         {
             if(InputManager.Instance.GetAButton())
             {
-                AButton.SetActive(false);
                 switch(_towerKind)
                 {
                     case TowerKindEnum.None:
