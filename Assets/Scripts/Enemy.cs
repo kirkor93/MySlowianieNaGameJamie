@@ -23,11 +23,14 @@ public class Enemy : MonoBehaviour
     protected float _attackTimer = 0.0f;
     protected float _attackCooldown = 1.0f;
 
+    protected Rigidbody _myRigidbody;
+
     public bool IsDead { get; protected set; }
 
 	// Use this for initialization
 	void Start () 
     {
+        _myRigidbody = GetComponent<Rigidbody>();
         _myAgent = GetComponent<NavMeshAgent>();
         if(_myAgent == null)
         {
@@ -44,6 +47,7 @@ public class Enemy : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
+        _myRigidbody.velocity = Vector3.zero;
         if(_gateInSight && _gateTarget != null)
         {
             if(_gateClose)
@@ -148,6 +152,7 @@ public class Enemy : MonoBehaviour
             _playerInSight = true;
             _playerClose = false;
             _playerControllerScript = _playerTarget.GetComponent<PlayerController>();
+            _playerControllerScript.DecreaseHealth(5.0f);
         }
         
         if(col.gameObject.layer == LayerMask.NameToLayer("CityHall"))

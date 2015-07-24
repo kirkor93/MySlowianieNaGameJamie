@@ -44,6 +44,7 @@ public class GameManager : Singleton<GameManager>
                 Period = GamePeriod.Defense;
                 WaveCounter += 1;
                 EnemiesCount = BaseEnemiesCount + EnemiesIncreasePerWaveValue * BaseEnemiesCount;
+                //Debug shieet
                 if (WaveCounter == 1) EnemiesCount = 1;
                 OnGamePeriodChange();
             }
@@ -54,7 +55,8 @@ public class GameManager : Singleton<GameManager>
             {
                 Period = GamePeriod.Collect;
                 _collectPeriodTimer = 0.0f;
-                CollectDurationPerPeriod = float.MaxValue;
+                //Debug shieeet
+                CollectPeriodDuration = float.MaxValue;
                 OnGamePeriodChange();
             }
         }
