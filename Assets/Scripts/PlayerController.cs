@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour {
 
     private bool _resourceInRange = false;
 
+    private Rigidbody _myRigidbody;
+
     private Resource _currentResource;
 
     public bool ResourceInRange
@@ -17,17 +19,22 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        _myRigidbody = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+        _myRigidbody.velocity = Vector3.zero;
+
         transform.position += InputManager.Instance.GetLeftStick() * Time.deltaTime * SpeedMultiplier;
 	    if(_resourceInRange)
         {
             if(InputManager.Instance.GetAButton())
             {
                 _currentResource.Collect();
+                _resourceInRange = false;
+                _currentResource = null;
             }
         }
     }
