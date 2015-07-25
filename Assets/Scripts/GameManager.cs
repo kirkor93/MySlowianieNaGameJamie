@@ -86,9 +86,6 @@ public class GameManager : Singleton<GameManager>
                     sp.SpawnEnemies();
                 }
                 WaveCounter += 1;
-                EnemiesCount = BaseEnemiesCount + EnemiesIncreasePerWaveValue * BaseEnemiesCount;
-                //Debug shieet
-                if (WaveCounter == 1) EnemiesCount = 1;
                 OnGamePeriodChange();
             }
         }
