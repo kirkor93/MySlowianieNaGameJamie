@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : MonoBehaviour 
+{
+    public float Speed = 1.0f;
 
     protected GameObject _target;
     protected Enemy _targetEnemyScript;
@@ -32,7 +34,7 @@ public class Bullet : MonoBehaviour {
         else
         {
             transform.position = Vector3.Lerp(_initPosition, _target.transform.position, _timer);
-            _timer += Time.deltaTime;
+            _timer += Speed * Time.deltaTime;
             if (_timer >= 1.0f)
             {
                 _targetEnemyScript.DecreaseHealth(_damage);

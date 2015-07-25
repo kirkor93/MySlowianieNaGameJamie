@@ -2092,7 +2092,7 @@ MonoBehaviour:
   _damage: 10
   _attackCooldown: 3
   BulletPrefab: {fileID: 169296, guid: a0658fe7b7ecd1a41a293f6620bd6925, type: 2}
-  ShootingPosition: {fileID: 0}
+  ShootingPosition: {fileID: 462388}
 --- !u!114 &11404376
 MonoBehaviour:
   m_ObjectHideFlags: 1
