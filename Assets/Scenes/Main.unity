@@ -9692,6 +9692,18 @@ Prefab:
       propertyPath: PlayerFour
       value: 
       objectReference: {fileID: 642639997}
+    - target: {fileID: 8270426, guid: 062c5e536920c404eb34c1e505fc489f, type: 2}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270426, guid: 062c5e536920c404eb34c1e505fc489f, type: 2}
+      propertyPath: m_Volume
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474202, guid: 062c5e536920c404eb34c1e505fc489f, type: 2}
+      propertyPath: CollectPeriodDuration
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 062c5e536920c404eb34c1e505fc489f, type: 2}
   m_IsPrefabParent: 0
