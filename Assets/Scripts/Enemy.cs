@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("How the fuck is it possible?!");
         }
-        _myAgent.SetDestination(Vector3.zero);
+        ResumeNavMeshAgent(Vector3.zero);
 	}
 
     void OnEnable()
@@ -145,7 +145,7 @@ public class Enemy : MonoBehaviour
             _gateInSight = false;
             _gateClose = false;
             IsDead = true;
-            Destroy(gameObject, 1.0f);
+            gameObject.SetActive(false);
         }
     }
 

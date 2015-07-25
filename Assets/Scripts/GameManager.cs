@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : Singleton<GameManager>
 {
     //[HideInInspector]
     public GamePeriod Period;
+    public List<SpawnPoint> SpawnPoints;
 
     public delegate void GamePeriodDelegate();
     public event GamePeriodDelegate OnGamePeriodChange;
@@ -62,8 +64,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-
         EnemiesCount = BaseEnemiesCount;
+        OnGamePeriodChange();
     }
     
     private void Update()
@@ -79,6 +81,10 @@ public class GameManager : Singleton<GameManager>
             if(_collectPeriodTimer > CollectPeriodDuration)
             {
                 Period = GamePeriod.Defense;
+                foreach(SpawnPoint sp in SpawnPoints)
+                {
+                    sp.SpawnEnemies();
+                }
                 WaveCounter += 1;
                 EnemiesCount = BaseEnemiesCount + EnemiesIncreasePerWaveValue * BaseEnemiesCount;
                 //Debug shieet
@@ -92,8 +98,6 @@ public class GameManager : Singleton<GameManager>
             {
                 Period = GamePeriod.Collect;
                 _collectPeriodTimer = 0.0f;
-                //Debug shieeet
-                CollectPeriodDuration = float.MaxValue;
                 OnGamePeriodChange();
             }
         }
