@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 
     public float BasePlayerHP = 0.0f;
 
+    public AudioClip[] Clips;
 
     private float _playerHP = 0.0f;
 
@@ -32,11 +33,13 @@ public class PlayerController : MonoBehaviour {
     private bool _resourceInRange = false;
     private bool _collectPeriod = true;
 
+    private AudioSource _myAudioSource;
     private Animator _myAnimator;
     private Rigidbody _myRigidbody;
     private Resource _currentResource;
 
     private List<Enemy> _targets;
+
 
     public bool ResourceInRange
     {
@@ -53,6 +56,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         _targets = new List<Enemy>();
         _playerHP = BasePlayerHP;
+        _myAudioSource = GetComponent<AudioSource>();
         _myAnimator = GetComponent<Animator>();
         _myRigidbody = GetComponent<Rigidbody>();
         GameManager.Instance.OnGamePeriodChange += OnPeriodChange;
@@ -118,6 +122,7 @@ public class PlayerController : MonoBehaviour {
     public void DecreaseHealth(float value)
     {
         _playerHP -= value;
+        _myAudioSource.PlayOneShot(Clips[1]);
         _myAnimator.SetBool("IsGettingHit", true);
         if(_playerHP <= 0.0f)
         {
@@ -175,6 +180,11 @@ public class PlayerController : MonoBehaviour {
     public void AnimationAttackFalse()
     {
         _myAnimator.SetBool("AttackEnemy", false);
+    }
+
+    public void AnimationAttackSound()
+    {
+        _myAudioSource.PlayOneShot(Clips[0]);
     }
 
 }
