@@ -16,6 +16,7 @@ public class Billboard : MonoBehaviour
         Vector3 v = cameraTransform.position - myTransform.position;
         v.x = v.z = 0.0f;
         myTransform.LookAt(cameraTransform.position - v);
+        myTransform.Rotate(Vector3.up * 180.0f);
     }
 
 }

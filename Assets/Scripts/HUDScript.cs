@@ -11,8 +11,9 @@ public class HUDScript : MonoBehaviour
     public Text TimeLeftToAttackText;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+    {
+        GameManager.Instance.OnGamePeriodChange += OnGamePeriodChange;
 	}
 	
 	// Update is called once per frame
@@ -47,5 +48,10 @@ public class HUDScript : MonoBehaviour
         }
         time += seconds.ToString();
         return time;
+    }
+
+    void OnGamePeriodChange()
+    {
+        gameObject.SetActive(GameManager.Instance.Period == GamePeriod.Collect);
     }
 }
