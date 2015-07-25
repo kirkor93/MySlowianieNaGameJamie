@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 453518}
   - 114: {fileID: 11474202}
+  - 82: {fileID: 8270426}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -28,6 +29,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!82 &8270426
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177894}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 5804f1cb09f490640bed7bc34e264d15, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: .600000024
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &11474202
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -47,7 +117,7 @@ MonoBehaviour:
   - {fileID: 0}
   RestrictionPointOne: {fileID: 0}
   RestrictionPointTwo: {fileID: 0}
-  CollectPeriodDuration: 120
+  CollectPeriodDuration: 10
   CollectDurationPerPeriod: 0
   WaveCounter: 0
   EnemiesCount: 0
@@ -57,6 +127,9 @@ MonoBehaviour:
   PlayerTwo: {fileID: 0}
   PlayerThree: {fileID: 0}
   PlayerFour: {fileID: 0}
+  Clips:
+  - {fileID: 8300000, guid: 5804f1cb09f490640bed7bc34e264d15, type: 3}
+  - {fileID: 8300000, guid: b830230f28e310d428974e5d01784688, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
