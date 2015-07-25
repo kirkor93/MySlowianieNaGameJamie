@@ -23,11 +23,13 @@ public class Gate : MonoBehaviour
     protected Vector3 _rightSideInitRotation;
     protected float _timer = 0.0f;
 
+    protected AudioSource _myAudioSource;
+
     protected List<PlayerController> _playerControllerScript = new List<PlayerController>();
 
     void OnEnable()
     {
-
+        _myAudioSource = GetComponent<AudioSource>();
         _hp = 500.0f;
         IsDestroyed = false;
         GameManager.Instance.OnGamePeriodChange += OnGamePeriodChange;
@@ -57,6 +59,7 @@ public class Gate : MonoBehaviour
 
         if(_openGate)
         {
+            _myAudioSource.Play();
             _timer += Time.deltaTime * GateOpenCloseSpeed;
             RightSide.transform.eulerAngles = Vector3.Lerp(_rightSideInitRotation, _desiredRightSideRotation, _timer);
             LeftSide.transform.eulerAngles = Vector3.Lerp(_leftSideInitRotation, _desiredLeftSideRotation, _timer);
@@ -68,6 +71,7 @@ public class Gate : MonoBehaviour
         }
         else if(_closeGate)
         {
+            _myAudioSource.Play();
             _timer += Time.deltaTime * GateOpenCloseSpeed;
             RightSide.transform.eulerAngles = Vector3.Lerp(_desiredRightSideRotation, _rightSideInitRotation, _timer);
             LeftSide.transform.eulerAngles = Vector3.Lerp(_desiredLeftSideRotation, _leftSideInitRotation, _timer);
