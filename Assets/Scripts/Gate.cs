@@ -61,8 +61,6 @@ public class Gate : MonoBehaviour
 
         if(_openGate)
         {
-            _myAudioSource.volume = 0.2f;
-            _myAudioSource.PlayOneShot(Clips[0]);
             _timer += Time.deltaTime * GateOpenCloseSpeed;
             RightSide.transform.eulerAngles = Vector3.Lerp(_rightSideInitRotation, _desiredRightSideRotation, _timer);
             LeftSide.transform.eulerAngles = Vector3.Lerp(_leftSideInitRotation, _desiredLeftSideRotation, _timer);
@@ -74,8 +72,6 @@ public class Gate : MonoBehaviour
         }
         else if(_closeGate)
         {
-            _myAudioSource.volume = 0.2f;
-            _myAudioSource.PlayOneShot(Clips[0]);
             _timer += Time.deltaTime * GateOpenCloseSpeed;
             RightSide.transform.eulerAngles = Vector3.Lerp(_desiredRightSideRotation, _rightSideInitRotation, _timer);
             LeftSide.transform.eulerAngles = Vector3.Lerp(_desiredLeftSideRotation, _leftSideInitRotation, _timer);
@@ -106,11 +102,15 @@ public class Gate : MonoBehaviour
         {
             _openGate = true;
             _closeGate = false;
+            _myAudioSource.volume = 1.0f;
+            _myAudioSource.PlayOneShot(Clips[0]);
         }
         else
         {
             _openGate = false;
             _closeGate = true;
+            _myAudioSource.volume = 1.0f;
+            _myAudioSource.PlayOneShot(Clips[0]);
         }
     }
 

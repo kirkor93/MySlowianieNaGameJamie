@@ -207,7 +207,6 @@ public class Enemy : MonoBehaviour
     {
         if(col.gameObject.layer == LayerMask.NameToLayer("CityHall"))
         {
-            _myAudioSource.PlayOneShot(Clips[2]);
             col.gameObject.GetComponent<CityHall>().DecreaseHealth();
             Destroy(gameObject);
         }
