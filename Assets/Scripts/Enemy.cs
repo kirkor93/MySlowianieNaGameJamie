@@ -204,7 +204,7 @@ public class Enemy : MonoBehaviour
     {
         if(col.gameObject.layer == LayerMask.NameToLayer("CityHall"))
         {
-            col.transform.parent.gameObject.GetComponent<CityHall>().DecreaseHealth();
+            col.gameObject.GetComponent<CityHall>().DecreaseHealth();
             Destroy(gameObject);
         }
     }
