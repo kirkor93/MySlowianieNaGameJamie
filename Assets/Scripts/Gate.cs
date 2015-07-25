@@ -51,6 +51,16 @@ public class Gate : MonoBehaviour, IDamagable
         _rightSideInitRotation = RightSide.transform.eulerAngles;
         _desiredLeftSideRotation = LeftSide.transform.eulerAngles - new Vector3(0.0f, GateOpeningAngle, 0.0f);
         _desiredRightSideRotation = RightSide.transform.eulerAngles + new Vector3(0.0f, GateOpeningAngle, 0.0f);
+        if(GameManager.Instance.Period == GamePeriod.Collect)
+        {
+            RightSide.transform.eulerAngles = Vector3.Lerp(_rightSideInitRotation, _desiredRightSideRotation, 1.0f);
+            LeftSide.transform.eulerAngles = Vector3.Lerp(_leftSideInitRotation, _desiredLeftSideRotation, 1.0f);
+        }
+        else
+        {
+            RightSide.transform.eulerAngles = Vector3.Lerp(_desiredRightSideRotation, _rightSideInitRotation, 1.0f);
+            LeftSide.transform.eulerAngles = Vector3.Lerp(_desiredLeftSideRotation, _leftSideInitRotation, 1.0f);
+        }
     }
 
     void Update()
