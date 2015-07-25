@@ -4,6 +4,9 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour 
 {
+    public float AttackDamage = 10.0f;
+    public float GateAttackDamage = 50.0f;
+
     protected NavMeshAgent _myAgent;
 
     protected GameObject _gateTarget;
@@ -47,7 +50,7 @@ public class Enemy : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        _myRigidbody.velocity = Vector3.zero;
+        //_myRigidbody.velocity = Vector3.zero;
         if(_gateInSight && _gateTarget != null)
         {
             if(_gateClose)
@@ -56,12 +59,12 @@ public class Enemy : MonoBehaviour
                 if(_attackTimer >= _attackCooldown)
                 {
                     _attackTimer = 0.0f;
-                    _targetGateScript.DecreaseHealth(100.0f);
+                    _targetGateScript.DecreaseHealth(GateAttackDamage);
                     if(_targetGateScript.IsDestroyed)
                     {
                         Destroy(_targetGateScript.gameObject);
                         _gateClose = false;
-                        _myAgent.SetDestination(Vector3.zero);
+                        ResumeNavMeshAgent(Vector3.zero);
                         _gateInSight = false;
                     }
                 }
@@ -69,11 +72,10 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                _myAgent.SetDestination(_gateTarget.transform.position);
-                _myAgent.speed = 3.5f;
+                ResumeNavMeshAgent(_gateTarget.transform.position);
                 if(Vector3.Distance(transform.position, _gateTarget.transform.position) < 2.0f)
                 {
-                    _myAgent.SetDestination(transform.position);
+                    StopNavMeshAgent();
                     _gateClose = true;
                 }
             }
@@ -84,12 +86,22 @@ public class Enemy : MonoBehaviour
         {
             if(_playerClose)
             {
+                if(_playerControllerScript.IsStuned)
+                {
+                    _playerClose = false;
+                    _playerTarget = null;
+                    _playerInSight = false;
+                    _playerControllerScript = null;
+                    _attackTimer = 0.0f;
+                    ResumeNavMeshAgent(Vector3.zero);
+                    return;
+                }
                 Vector3 lookPos = _playerTarget.transform.position - transform.position;
                 StopNavMeshAgent();
                 if(_attackTimer >= _attackCooldown)
                 {
                     _attackTimer = 0.0f;
-                    //Attack player
+                    _playerControllerScript.DecreaseHealth(AttackDamage);
                 }
                 _attackTimer += Time.deltaTime;
                 if(lookPos.magnitude >= 2.5f)
@@ -99,8 +111,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                _myAgent.SetDestination(_playerTarget.transform.position);
-                _myAgent.speed = 3.5f;
+                ResumeNavMeshAgent(_playerTarget.transform.position);
                 if ((_playerTarget.transform.position - transform.position).magnitude < 2.0f)
                 {
                     _playerClose = true;
@@ -113,6 +124,12 @@ public class Enemy : MonoBehaviour
     {
         _myAgent.speed = 0.0f;
         _myAgent.velocity = Vector3.zero;
+    }
+
+    void ResumeNavMeshAgent(Vector3 destination)
+    {
+        _myAgent.speed = 3.5f;
+        _myAgent.SetDestination(destination);
     }
 
     public void DecreaseHealth(float dmg)
@@ -154,12 +171,6 @@ public class Enemy : MonoBehaviour
             _playerControllerScript = _playerTarget.GetComponent<PlayerController>();
             _playerControllerScript.DecreaseHealth(5.0f);
         }
-        
-        if(col.gameObject.layer == LayerMask.NameToLayer("CityHall"))
-        {
-            //City hall attack
-            _attackTimer = 0.0f;
-        }
     }
 
     public void OnTriggerExit(Collider col)
@@ -185,6 +196,15 @@ public class Enemy : MonoBehaviour
             _playerInSight = false;
             _playerClose = false;
             _myAgent.SetDestination(Vector3.zero);
+        }
+    }
+
+    public void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.layer == LayerMask.NameToLayer("CityHall"))
+        {
+            col.transform.parent.gameObject.GetComponent<CityHall>().DecreaseHealth();
+            Destroy(gameObject);
         }
     }
 }

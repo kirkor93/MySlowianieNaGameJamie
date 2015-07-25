@@ -11,6 +11,8 @@ public enum TowerKindEnum
 
 public class TowerSlot : MonoBehaviour
 {
+    protected PlayerController _nearestPlayerController;
+
     public GameObject AButton;
 
     public GameObject Tower;
@@ -29,35 +31,45 @@ public class TowerSlot : MonoBehaviour
     {
         if(_isPlayerCloseEnough)
         {
-            if(InputManager.Instance.GetAButton())
+            if (InputManager.Instance.GetAButton(_nearestPlayerController.PlayerIndex))
             {
+                AButton.SetActive(false);
                 switch(_towerKind)
                 {
                     case TowerKindEnum.None:
                         TowerCard.gameObject.SetActive(true);
                         TowerCard.SetTowerSlot(this);
+                        TowerCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         CannonCard.gameObject.SetActive(true);
                         CannonCard.SetTowerSlot(this);
+                        CannonCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         MortarCard.gameObject.SetActive(true);
                         MortarCard.SetTowerSlot(this);
+                        MortarCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         break;
                     case TowerKindEnum.Tower:
                         CannonCard.gameObject.SetActive(true);
                         CannonCard.SetTowerSlot(this);
+                        CannonCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         MortarCard.gameObject.SetActive(true);
                         MortarCard.SetTowerSlot(this);
+                        MortarCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         break;
                     case TowerKindEnum.Cannon:
                         TowerCard.gameObject.SetActive(true);
                         TowerCard.SetTowerSlot(this);
+                        TowerCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         MortarCard.gameObject.SetActive(true);
                         MortarCard.SetTowerSlot(this);
+                        MortarCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         break;
                     case TowerKindEnum.Mortar:
                         TowerCard.gameObject.SetActive(true);
                         TowerCard.SetTowerSlot(this);
+                        TowerCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         CannonCard.gameObject.SetActive(true);
                         CannonCard.SetTowerSlot(this);
+                        CannonCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         break;
                 }
             }
@@ -66,7 +78,8 @@ public class TowerSlot : MonoBehaviour
 
     public void SetUpgrade(TowerKindEnum newTower)
     {
-        _towerKind = newTower; switch (_towerKind)
+        _towerKind = newTower; 
+        switch (_towerKind)
         {
             case TowerKindEnum.None:
                 Tower.SetActive(false);
@@ -92,12 +105,15 @@ public class TowerSlot : MonoBehaviour
         TowerCard.gameObject.SetActive(false);
         CannonCard.gameObject.SetActive(false);
         MortarCard.gameObject.SetActive(false);
+        AButton.SetActive(true);
+        _isPlayerCloseEnough = true;
     }
 
     public void OnTriggerEnter(Collider col)
     {
         if(col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            _nearestPlayerController = col.gameObject.GetComponent<PlayerController>();
             _isPlayerCloseEnough = true;
             AButton.SetActive(true);
         }

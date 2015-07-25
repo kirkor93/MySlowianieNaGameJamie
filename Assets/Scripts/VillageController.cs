@@ -68,5 +68,9 @@ public class VillageController : Singleton<VillageController> {
 	void Update () {
         //Delete debug when informations will be on GUI
         Debug.Log(string.Format("Food {0} / Iron {1} / Stone {2} / Wood {3} /", FoodValue, IronValue, StoneValue, WoodValue));
+        if(VillageHP <= 0.0f)
+        {
+            Debug.LogError("CITY HALL IS DESTROYED!!");
+        }
 	}
 }

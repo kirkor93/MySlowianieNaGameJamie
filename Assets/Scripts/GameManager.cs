@@ -23,6 +23,43 @@ public class GameManager : Singleton<GameManager>
     public int BaseEnemiesCount = 1;
     public int EnemiesIncreasePerWaveValue = 1;
 
+    public GameObject PlayerOne;
+    public GameObject PlayerTwo;
+    public GameObject PlayerThree;
+    public GameObject PlayerFour;
+
+    void OnEnable()
+    {
+        string[] connectedControllers = Input.GetJoystickNames();
+        switch(connectedControllers.Length)
+        {
+            case 4:
+            default:
+                EnablePlayers(true, true, true, true);
+                break;
+            case 3:
+                EnablePlayers(true, true, true, false);
+                break;
+            case 2:
+                EnablePlayers(true, true, false, false);
+                break;
+            case 1:
+                EnablePlayers(true, false, false, false);
+                break;
+            case 0:
+                EnablePlayers(false, false, false, false);
+                break;
+        }
+    }
+
+    void EnablePlayers(bool playerOne, bool playerTwo, bool playerThree, bool playerFour)
+    {
+        PlayerOne.SetActive(playerOne);
+        PlayerTwo.SetActive(playerTwo);
+        PlayerThree.SetActive(playerThree);
+        PlayerFour.SetActive(playerFour);
+    }
+
     private void Start()
     {
 

@@ -18,7 +18,6 @@ public class Gate : MonoBehaviour
         _hp -= dmg;
         if(_hp <= 0.0f)
         {
-            Debug.Log("Hey, i'm destroyed");
             IsDestroyed = true;
         }
     }

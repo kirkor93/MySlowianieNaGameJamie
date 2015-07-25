@@ -153,8 +153,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187928}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.63000011, y: 0, z: 10.2299995}
+  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106709}
+  m_LocalPosition: {x: 8.61999989, y: 0, z: -2.1400001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 440434}
@@ -173,8 +173,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.78999996, y: 3, z: -0}
+  m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 400908}
   m_RootOrder: 5
@@ -186,7 +186,7 @@ Transform:
   m_GameObject: {fileID: 126488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 400908}
   m_RootOrder: 6
@@ -221,8 +221,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 138304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.78999996, y: 3, z: 0}
+  m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 400908}
   m_RootOrder: 3
@@ -233,8 +233,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 117012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 400908}
   m_RootOrder: 4
@@ -384,8 +384,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 5, z: 5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.88, y: 3, z: 1.5}
+  m_Center: {x: 0, y: 0, z: -.829999983}
 --- !u!65 &6551442
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -445,7 +445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb66a2011f82dd6428ef91400ad49086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ButtonName: MortarButton
   TowerKind: 3
 --- !u!114 &11409346
 MonoBehaviour:
@@ -508,7 +507,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb66a2011f82dd6428ef91400ad49086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ButtonName: CannonButton
   TowerKind: 2
 --- !u!114 &11473286
 MonoBehaviour:
@@ -521,7 +519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb66a2011f82dd6428ef91400ad49086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ButtonName: TowerButton
   TowerKind: 1
 --- !u!114 &11489164
 MonoBehaviour:
