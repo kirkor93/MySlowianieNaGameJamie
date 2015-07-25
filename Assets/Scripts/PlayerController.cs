@@ -65,7 +65,14 @@ public class PlayerController : MonoBehaviour {
 
     private void OnPeriodChange()
     {
-        _collectPeriod = GameManager.Instance.Period == GamePeriod.Collect;
+        if (GameManager.Instance.Period == GamePeriod.Collect)
+        {
+            _collectPeriod = true;
+        }
+        else
+        {
+            _collectPeriod = false;
+        }
     }
 	
 	// Update is called once per frame

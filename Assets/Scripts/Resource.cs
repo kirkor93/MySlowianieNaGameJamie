@@ -32,7 +32,14 @@ public class Resource : MonoBehaviour {
 
     private void OnChangePeriod()
     {
-        _canCollect = GameManager.Instance.Period == GamePeriod.Collect;
+        if(GameManager.Instance.Period == GamePeriod.Collect)
+        {
+            _canCollect = true;
+        }
+        else
+        {
+            _canCollect = false;
+        }
         if(!_canCollect)
         {
             _aButton.SetActive(false);
