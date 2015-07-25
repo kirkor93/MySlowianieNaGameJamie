@@ -21,6 +21,7 @@ public class CameraScript : MonoBehaviour
     void Awake()
     {
         Invoke("CalculatePlayers", 0.5f);
+        StartCoroutine(MyUpdate());
         _camera = GetComponent<Camera>();
         GameManager.Instance.OnGamePeriodChange += OnGamePeriodChange;
     }
@@ -36,40 +37,46 @@ public class CameraScript : MonoBehaviour
         }
     }
 
-    void Update()
+    IEnumerator MyUpdate()
     {
-        if(!_isAttack)
+        yield return new WaitForSeconds(0.5f);
+        while(true)
         {
-            _sum = Vector3.zero;
-            foreach (Transform t in Targets)
+            if (!_isAttack)
             {
-                if (t.gameObject.activeSelf)
+                _sum = Vector3.zero;
+                foreach (Transform t in Targets)
                 {
-                    _sum += t.position;
-                }
-            }
-            _center = _sum / _activePlayers;
-            float farestDistance = 0.0f;
-            foreach (Transform t in Targets)
-            {
-                if (t.gameObject.activeSelf)
-                {
-                    float dist = Vector3.Distance(t.position, _center);
-                    if (dist > farestDistance)
+                    if (t.gameObject.activeSelf)
                     {
-                        farestDistance = dist;
-                        _farest = t.position;
+                        _sum += t.position;
                     }
                 }
+                _center = _sum / _activePlayers;
+                float farestDistance = 0.0f;
+                foreach (Transform t in Targets)
+                {
+                    if (t.gameObject.activeSelf)
+                    {
+                        float dist = Vector3.Distance(t.position, _center);
+                        if (dist > farestDistance)
+                        {
+                            farestDistance = dist;
+                            _farest = t.position;
+                        }
+                    }
+                }
+                Vector3 backVector = (Vector3.up + Vector3.back) * (MinimalDistance + farestDistance);
+                backVector = Quaternion.AngleAxis(transform.rotation.x, Vector3.right) * backVector;
+                Debug.Log(transform.position + " " + _center + " " + backVector);
+                transform.position = Vector3.Lerp(transform.position, _center + backVector, CameraMovingSpeed);
             }
-            Vector3 backVector = (Vector3.up + Vector3.back) * (MinimalDistance + farestDistance);
-            backVector = Quaternion.AngleAxis(transform.rotation.x, Vector3.right) * backVector;
-            transform.position = Vector3.Lerp(transform.position, _center + backVector, CameraMovingSpeed);
-        }
-        else
-        {
-            _attackTimer += 2.0f * Time.deltaTime;
-            transform.position = Vector3.Lerp(_centerRightBeforeAttack, PositionWhenAttackPeriod.position, _attackTimer);
+            else
+            {
+                _attackTimer += 2.0f * Time.deltaTime;
+                transform.position = Vector3.Lerp(_centerRightBeforeAttack, PositionWhenAttackPeriod.position, _attackTimer);
+            }
+            yield return null;
         }
     }
 

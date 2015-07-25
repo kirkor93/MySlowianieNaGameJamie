@@ -45,6 +45,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  RestrictionPointOne: {fileID: 0}
+  RestrictionPointTwo: {fileID: 0}
   CollectPeriodDuration: 120
   CollectDurationPerPeriod: 0
   WaveCounter: 0
