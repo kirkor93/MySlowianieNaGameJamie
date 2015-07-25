@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnPeriodChange()
     {
-        _collectPeriod = !_collectPeriod;
+        _collectPeriod = GameManager.Instance.Period == GamePeriod.Collect;
     }
 	
 	// Update is called once per frame
@@ -175,10 +175,6 @@ public class PlayerController : MonoBehaviour {
         {
             enemy.DecreaseHealth(5.0f);
         }
-    }
-
-    public void AnimationAttackFalse()
-    {
         _myAnimator.SetBool("AttackEnemy", false);
     }
 
