@@ -39,19 +39,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb3e20084d60f9458ea7c32f3795954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  EnemyLayer:
-    serializedVersion: 2
-    m_Bits: 512
+  Period: 0
+  SpawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CollectPeriodDuration: 120
+  CollectDurationPerPeriod: 0
+  WaveCounter: 0
+  EnemiesCount: 0
+  BaseEnemiesCount: 1
+  EnemiesIncreasePerWaveValue: 1
+  PlayerOne: {fileID: 0}
+  PlayerTwo: {fileID: 0}
+  PlayerThree: {fileID: 0}
+  PlayerFour: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: SpawnPoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 177894}

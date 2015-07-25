@@ -1,0 +1,279 @@
+fileFormatVersion: 2
+guid: d91204f5d5b53154ea3eb6469216ed21
+timeCreated: 1437840338
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Beard
+    100002: Da axe
+    100004: Dat nose
+    100006: Eyes
+    100008: Hand L
+    100010: Hand R
+    100012: Hands
+    100014: Head
+    100016: Helmet
+    100018: Leg L
+    100020: Leg R
+    100022: Legs
+    100024: Root
+    100026: //RootNode
+    400000: Beard
+    400002: Da axe
+    400004: Dat nose
+    400006: Eyes
+    400008: Hand L
+    400010: Hand R
+    400012: Hands
+    400014: Head
+    400016: Helmet
+    400018: Leg L
+    400020: Leg R
+    400022: Legs
+    400024: Root
+    400026: //RootNode
+    4300000: Legs
+    4300002: Hands
+    4300004: Helmet
+    4300006: Beard
+    4300008: Dat nose
+    4300010: Eyes
+    4300012: Head
+    4300014: Da axe
+    7400000: Walk
+    7400002: Attack
+    7400004: GetHit
+    9500000: //RootNode
+    13700000: Beard
+    13700002: Da axe
+    13700004: Dat nose
+    13700006: Eyes
+    13700008: Hands
+    13700010: Head
+    13700012: Helmet
+    13700014: Legs
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Beard
+        weight: 1
+      - path: Da axe
+        weight: 1
+      - path: Dat nose
+        weight: 1
+      - path: Eyes
+        weight: 1
+      - path: Hands
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Helmet
+        weight: 1
+      - path: Legs
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hand L
+        weight: 1
+      - path: Root/Hand R
+        weight: 1
+      - path: Root/Leg L
+        weight: 1
+      - path: Root/Leg R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Attack
+      takeName: Take 001
+      firstFrame: 80
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Beard
+        weight: 1
+      - path: Da axe
+        weight: 1
+      - path: Dat nose
+        weight: 1
+      - path: Eyes
+        weight: 1
+      - path: Hands
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Helmet
+        weight: 1
+      - path: Legs
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hand L
+        weight: 1
+      - path: Root/Hand R
+        weight: 1
+      - path: Root/Leg L
+        weight: 1
+      - path: Root/Leg R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: GetHit
+      takeName: Take 001
+      firstFrame: 121
+      lastFrame: 140
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Beard
+        weight: 1
+      - path: Da axe
+        weight: 1
+      - path: Dat nose
+        weight: 1
+      - path: Eyes
+        weight: 1
+      - path: Hands
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Helmet
+        weight: 1
+      - path: Legs
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hand L
+        weight: 1
+      - path: Root/Hand R
+        weight: 1
+      - path: Root/Leg L
+        weight: 1
+      - path: Root/Leg R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

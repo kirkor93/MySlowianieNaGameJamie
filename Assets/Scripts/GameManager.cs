@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : Singleton<GameManager>
 {
     //[HideInInspector]
     public GamePeriod Period;
+    public List<SpawnPoint> SpawnPoints;
 
     public delegate void GamePeriodDelegate();
     public event GamePeriodDelegate OnGamePeriodChange;
@@ -14,6 +16,14 @@ public class GameManager : Singleton<GameManager>
     public float CollectDurationPerPeriod = 0.0f;
 
     private float _collectPeriodTimer = 0.0f;
+
+    public float TimeLeft
+    {
+        get
+        {
+            return CollectPeriodDuration - _collectPeriodTimer;
+        }
+    }
 
     //Defense
     [HideInInspector]
@@ -62,12 +72,13 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-
         EnemiesCount = BaseEnemiesCount;
+        OnGamePeriodChange();
     }
     
     private void Update()
     {
+        Debug.Log("Period = " + Period);
         if(VillageController.Instance.VillageHP <= 0 )
         {
             Debug.LogWarning("Game Over");
@@ -79,10 +90,13 @@ public class GameManager : Singleton<GameManager>
             if(_collectPeriodTimer > CollectPeriodDuration)
             {
                 Period = GamePeriod.Defense;
+                EnemiesCount = 0;
+                foreach(SpawnPoint sp in SpawnPoints)
+                {
+                    sp.SpawnEnemies();
+                    EnemiesCount += sp.Enemies.Count;
+                }
                 WaveCounter += 1;
-                EnemiesCount = BaseEnemiesCount + EnemiesIncreasePerWaveValue * BaseEnemiesCount;
-                //Debug shieet
-                if (WaveCounter == 1) EnemiesCount = 1;
                 OnGamePeriodChange();
             }
         }
@@ -92,8 +106,6 @@ public class GameManager : Singleton<GameManager>
             {
                 Period = GamePeriod.Collect;
                 _collectPeriodTimer = 0.0f;
-                //Debug shieeet
-                CollectPeriodDuration = float.MaxValue;
                 OnGamePeriodChange();
             }
         }

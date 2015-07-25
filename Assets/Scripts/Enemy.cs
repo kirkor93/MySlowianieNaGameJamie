@@ -40,12 +40,17 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("How the fuck is it possible?!");
         }
-        _myAgent.SetDestination(Vector3.zero);
+        ResumeNavMeshAgent(Vector3.zero);
 	}
 
     void OnEnable()
     {
         _hp = 50.0f;
+        if (_myAgent == null)
+        {
+            _myAgent = GetComponent<NavMeshAgent>();
+        }
+        ResumeNavMeshAgent(Vector3.zero);
     }
 	
 	// Update is called once per frame
@@ -59,7 +64,7 @@ public class Enemy : MonoBehaviour
                 _myAnimator.SetBool("PlayerClose", true);
                 if(_targetGateScript.IsDestroyed)
                 {
-                    Destroy(_targetGateScript.gameObject);
+                    _gateTarget.SetActive(false);
                     _gateClose = false;
                     ResumeNavMeshAgent(Vector3.zero);
                     _gateInSight = false;
@@ -145,7 +150,7 @@ public class Enemy : MonoBehaviour
             _gateInSight = false;
             _gateClose = false;
             IsDead = true;
-            Destroy(gameObject, 1.0f);
+            gameObject.SetActive(false);
         }
     }
 
@@ -199,7 +204,7 @@ public class Enemy : MonoBehaviour
     {
         if(col.gameObject.layer == LayerMask.NameToLayer("CityHall"))
         {
-            col.transform.parent.gameObject.GetComponent<CityHall>().DecreaseHealth();
+            col.gameObject.GetComponent<CityHall>().DecreaseHealth();
             Destroy(gameObject);
         }
     }

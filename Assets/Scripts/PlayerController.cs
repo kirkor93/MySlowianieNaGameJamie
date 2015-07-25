@@ -23,22 +23,23 @@ public class PlayerController : MonoBehaviour {
 
     public float BasePlayerHP = 0.0f;
 
+    public AudioClip[] Clips;
 
     private float _playerHP = 0.0f;
 
     private bool _stunned = false;
     private float _stunTimer = 0.0f;
-    private bool _attackFlag = false;
-    private float _attackTimer = 0.0f;
 
     private bool _resourceInRange = false;
     private bool _collectPeriod = true;
 
+    private AudioSource _myAudioSource;
     private Animator _myAnimator;
     private Rigidbody _myRigidbody;
     private Resource _currentResource;
 
     private List<Enemy> _targets;
+
 
     public bool ResourceInRange
     {
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         _targets = new List<Enemy>();
         _playerHP = BasePlayerHP;
+        _myAudioSource = GetComponent<AudioSource>();
         _myAnimator = GetComponent<Animator>();
         _myRigidbody = GetComponent<Rigidbody>();
         GameManager.Instance.OnGamePeriodChange += OnPeriodChange;
@@ -63,8 +65,14 @@ public class PlayerController : MonoBehaviour {
 
     private void OnPeriodChange()
     {
-        Debug.Log("Period change");
-        _collectPeriod = !_collectPeriod;
+        if (GameManager.Instance.Period == GamePeriod.Collect)
+        {
+            _collectPeriod = true;
+        }
+        else
+        {
+            _collectPeriod = false;
+        }
     }
 	
 	// Update is called once per frame
@@ -84,13 +92,20 @@ public class PlayerController : MonoBehaviour {
         else
         {
             Vector3 move = InputManager.Instance.GetLeftStick(PlayerIndex);
-            transform.position += move * Time.deltaTime * SpeedMultiplier;
 
-            if(move != Vector3.zero)transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.LookRotation(move), Time.deltaTime * RotationSpeed);
-
-            if(_collectPeriod)
+            if (move != Vector3.zero)
             {
-	            if(_resourceInRange)
+                transform.position += move * Time.deltaTime * SpeedMultiplier;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(move), Time.deltaTime * RotationSpeed);
+                _myAnimator.SetBool("Walk", true);
+            }
+            else
+            {
+                _myAnimator.SetBool("Walk", false);
+            }
+            if (_collectPeriod)
+            {
+                if (_resourceInRange)
                 {
                     if (InputManager.Instance.GetAButton(PlayerIndex))
                     {
@@ -102,14 +117,10 @@ public class PlayerController : MonoBehaviour {
             }
             else
             {
-                _attackTimer += Time.deltaTime;
-
-                if (InputManager.Instance.GetAButton(PlayerIndex) && _attackTimer > AttackDelay)
+                if (InputManager.Instance.GetAButton(PlayerIndex) && !_myAnimator.GetBool("AttackEnemy"))
                 {
                     Debug.Log("Attack");
-                    //Play Anim :3
-                    _attackFlag = true;
-                    _attackTimer = 0.0f;
+                    _myAnimator.SetBool("AttackEnemy", true);
                 }
             }
         }
@@ -118,6 +129,7 @@ public class PlayerController : MonoBehaviour {
     public void DecreaseHealth(float value)
     {
         _playerHP -= value;
+        _myAudioSource.PlayOneShot(Clips[1]);
         _myAnimator.SetBool("IsGettingHit", true);
         if(_playerHP <= 0.0f)
         {
@@ -149,15 +161,12 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerExit(Collider col)
     {
-        if (_attackFlag)
+        if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            Enemy tmpEnemy = col.gameObject.GetComponent<Enemy>();
+            if (tmpEnemy != null && _targets.Contains(tmpEnemy))
             {
-                Enemy tmpEnemy = col.gameObject.GetComponent<Enemy>();
-                if(tmpEnemy != null && _targets.Contains(tmpEnemy))
-                {
-                    _targets.Remove(tmpEnemy);
-                }
+                _targets.Remove(tmpEnemy);
             }
         }
     }
@@ -173,6 +182,12 @@ public class PlayerController : MonoBehaviour {
         {
             enemy.DecreaseHealth(5.0f);
         }
+        _myAnimator.SetBool("AttackEnemy", false);
+    }
+
+    public void AnimationAttackSound()
+    {
+        _myAudioSource.PlayOneShot(Clips[0]);
     }
 
 }
