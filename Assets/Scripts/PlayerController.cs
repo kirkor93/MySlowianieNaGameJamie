@@ -84,13 +84,20 @@ public class PlayerController : MonoBehaviour {
         else
         {
             Vector3 move = InputManager.Instance.GetLeftStick(PlayerIndex);
-            transform.position += move * Time.deltaTime * SpeedMultiplier;
 
-            if(move != Vector3.zero)transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.LookRotation(move), Time.deltaTime * RotationSpeed);
-
-            if(_collectPeriod)
+            if (move != Vector3.zero)
             {
-	            if(_resourceInRange)
+                transform.position += move * Time.deltaTime * SpeedMultiplier;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(move), Time.deltaTime * RotationSpeed);
+                //Walk
+            }
+            else
+            {
+                //Iddle
+            }
+            if (_collectPeriod)
+            {
+                if (_resourceInRange)
                 {
                     if (InputManager.Instance.GetAButton(PlayerIndex))
                     {
@@ -107,9 +114,7 @@ public class PlayerController : MonoBehaviour {
                 if (InputManager.Instance.GetAButton(PlayerIndex) && _attackTimer > AttackDelay)
                 {
                     Debug.Log("Attack");
-                    //Play Anim :3
-                    _attackFlag = true;
-                    _attackTimer = 0.0f;
+                    _myAnimator.SetBool("AttackEnemy", true);
                 }
             }
         }
@@ -173,6 +178,7 @@ public class PlayerController : MonoBehaviour {
         {
             enemy.DecreaseHealth(5.0f);
         }
+        _myAnimator.SetBool("AttackEnemy", false);
     }
 
 }
