@@ -19,6 +19,10 @@ public class GameManager : Singleton<GameManager>
 
     private float _collectPeriodTimer = 0.0f;
 
+    private bool _changeSoundFlag = false;
+    private bool _muteSoundPhase = true;
+    private float _soundMuteTimer = 0.0f;
+
     public float TimeLeft
     {
         get
@@ -39,6 +43,11 @@ public class GameManager : Singleton<GameManager>
     public GameObject PlayerTwo;
     public GameObject PlayerThree;
     public GameObject PlayerFour;
+
+    public AudioClip[] Clips;
+
+    private AudioSource _myAudioSource;
+    private float _baseVolume;
 
     void OnEnable()
     {
@@ -74,7 +83,10 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        _myAudioSource = GetComponent<AudioSource>();
+        _baseVolume = _myAudioSource.volume;
         EnemiesCount = BaseEnemiesCount;
+        _myAudioSource.Play();
         OnGamePeriodChange();
     }
     
@@ -85,6 +97,37 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.LogWarning("Game Over");
             Debug.Break();
+        }
+        if(_changeSoundFlag)
+        {
+            _soundMuteTimer += Time.deltaTime;
+            if (_muteSoundPhase)
+            {
+                _myAudioSource.volume -= Time.deltaTime * _baseVolume;
+                if(_soundMuteTimer >= 0.5f)
+                {
+                    if(Period == GamePeriod.Collect)
+                    {
+                        _myAudioSource.clip = Clips[0];
+                        _myAudioSource.Play();
+                    }
+                    else
+                    {
+                        _myAudioSource.clip = Clips[1];
+                        _myAudioSource.Play();
+                    }
+                    _muteSoundPhase = false;
+                }
+            }
+            else
+            {
+                _myAudioSource.volume += Time.deltaTime * _baseVolume;
+                if (_soundMuteTimer >= 0.5f)
+                {
+                    _changeSoundFlag = false;
+                }
+            }
+            
         }
         if(Period == GamePeriod.Collect)
         {
@@ -100,6 +143,10 @@ public class GameManager : Singleton<GameManager>
                 }
                 WaveCounter += 1;
                 OnGamePeriodChange();
+                _soundMuteTimer = 0.0f;
+                _changeSoundFlag = true;
+                _muteSoundPhase = true;
+                _baseVolume += 0.2f;
             }
         }
         else
@@ -109,6 +156,10 @@ public class GameManager : Singleton<GameManager>
                 Period = GamePeriod.Collect;
                 _collectPeriodTimer = 0.0f;
                 OnGamePeriodChange();
+                _soundMuteTimer = 0.0f;
+                _changeSoundFlag = true;
+                _muteSoundPhase = true;
+                _baseVolume -= 0.2f;
             }
         }
     }

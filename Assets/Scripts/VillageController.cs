@@ -3,7 +3,7 @@ using System.Collections;
 
 public class VillageController : Singleton<VillageController> {
 
-    public readonly float StartHp = 10.0f;
+    public float StartHp = 10.0f;
 
     public float VillageHP
     {

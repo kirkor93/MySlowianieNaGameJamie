@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [SelectionBase]
 public class Resource : MonoBehaviour {
@@ -10,11 +11,13 @@ public class Resource : MonoBehaviour {
     private AudioSource _myAudioSource;
     private MeshRenderer _myRenderer;
     private BoxCollider[] _boxColliders;
+    private List<GameObject> _players;
 
     private bool _canCollect = true;
 
 	// Use this for initialization
 	void Start () {
+        _players = new List<GameObject>();
         _myAudioSource = GetComponent<AudioSource>();
         _myRenderer = GetComponent<MeshRenderer>();
         if(_myRenderer == null)
@@ -40,9 +43,6 @@ public class Resource : MonoBehaviour {
         else
         {
             _canCollect = false;
-        }
-        if(!_canCollect)
-        {
             _aButton.SetActive(false);
         }
     }
@@ -51,6 +51,7 @@ public class Resource : MonoBehaviour {
     {
         if(_canCollect && col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            _players.Add(col.gameObject);
             _aButton.SetActive(true);
             col.gameObject.GetComponent<PlayerController>().SetResourceInRange(this);
         }
@@ -60,7 +61,8 @@ public class Resource : MonoBehaviour {
     {
         if (_canCollect && col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            _aButton.SetActive(false);
+            if (_players.Contains(col.gameObject)) _players.Remove(col.gameObject);
+            if(_players.Count == 0) _aButton.SetActive(false);
             col.gameObject.GetComponent<PlayerController>().UnsetResourceInRange();
         }
     }
@@ -74,23 +76,31 @@ public class Resource : MonoBehaviour {
             box.enabled = false;
         }
         _aButton.SetActive(false);
+
+        int resMultiplier = Random.Range(1, 3);
+
         switch(Type)
         {
             case ResourceType.Food:
-                VillageController.Instance.FoodValue += 1;
+                VillageController.Instance.FoodValue += resMultiplier * 1;
                 break;
             case ResourceType.Iron:
-                VillageController.Instance.IronValue += 1;
+                VillageController.Instance.IronValue += resMultiplier * 1;
                 break;
             case ResourceType.Stone:
-                VillageController.Instance.StoneValue += 1;
+                VillageController.Instance.StoneValue += resMultiplier * 1;
                 break;
             case ResourceType.Wood:
-                VillageController.Instance.WoodValue += 1;
+                VillageController.Instance.WoodValue += resMultiplier * 1;
                 break;
         }
-        GameManager.Instance.OnGamePeriodChange -= OnChangePeriod;
-        
+
+        foreach(GameObject go in _players)
+        {
+            go.GetComponent<PlayerController>().UnsetResourceInRange();
+        }
+        _players.Clear();
+        //GameManager.Instance.OnGamePeriodChange -= OnChangePeriod;   
         //Destroy(this.gameObject);
     }
      

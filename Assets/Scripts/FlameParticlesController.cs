@@ -21,7 +21,7 @@ public class FlameParticlesController : MonoBehaviour
             || Particles.Length == 0
             || _damagableObject == null)
         {
-            Debug.LogError("Particles manager couldn't get required components!");
+            //Debug.LogError("Particles manager couldn't get required components!");
             return;
         }
 
@@ -40,7 +40,7 @@ public class FlameParticlesController : MonoBehaviour
         if (_damagableObject.HitPoints < _thresholdMin
             && _particleIndex < Particles.Length)
         {
-            Debug.Log(string.Format("Enabled particle: {0}", _particleIndex));
+            //Debug.Log(string.Format("Enabled particle: {0}", _particleIndex));
             Particles[_particleIndex].enableEmission = true;
             _particleIndex++;
             _thresholdMin -= _thresholdLevelJump;
@@ -52,7 +52,7 @@ public class FlameParticlesController : MonoBehaviour
             && _particleIndex > 0)
             {
                 _particleIndex--;
-                Debug.Log(string.Format("Disabled particle: {0}", _particleIndex));
+                //Debug.Log(string.Format("Disabled particle: {0}", _particleIndex));
                 Particles[_particleIndex].enableEmission = false;
                 _thresholdMin += _thresholdLevelJump;
                 _thresholdMax += _thresholdLevelJump;
