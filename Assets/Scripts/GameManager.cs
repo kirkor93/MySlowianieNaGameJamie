@@ -78,7 +78,7 @@ public class GameManager : Singleton<GameManager>
     
     private void Update()
     {
-        Debug.Log("Period = " + Period);
+//        Debug.Log("Period = " + Period);
         if(VillageController.Instance.VillageHP <= 0 )
         {
             Debug.LogWarning("Game Over");

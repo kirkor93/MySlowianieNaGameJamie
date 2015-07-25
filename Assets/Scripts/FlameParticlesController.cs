@@ -9,7 +9,8 @@ public class FlameParticlesController : MonoBehaviour
     private int _particleIndex = 0;
     private IDamagable _damagableObject;
     private float _thresholdLevelJump;
-    private float _currentThresholdLevel;
+    private float _thresholdMin;
+    private float _thresholdMax;
     #endregion
     #region Methods
 
@@ -30,20 +31,33 @@ public class FlameParticlesController : MonoBehaviour
         }
 
         _thresholdLevelJump = (float) ((_damagableObject.MaxHitPoints*0.9f)/Particles.Length);
-        _currentThresholdLevel = _damagableObject.MaxHitPoints - _thresholdLevelJump;
+        _thresholdMin = _damagableObject.MaxHitPoints - _thresholdLevelJump;
+        _thresholdMax = _damagableObject.MaxHitPoints + 0.1f; //just in case
     }
 
     protected void Update()
     {
-        if (_damagableObject.HitPoints > _currentThresholdLevel
-            || _particleIndex >= Particles.Length)
+        if (_damagableObject.HitPoints < _thresholdMin
+            && _particleIndex < Particles.Length)
         {
-            return;
+            Debug.Log(string.Format("Enabled particle: {0}", _particleIndex));
+            Particles[_particleIndex].enableEmission = true;
+            _particleIndex++;
+            _thresholdMin -= _thresholdLevelJump;
+            _thresholdMax -= _thresholdLevelJump;
         }
-
-        Particles[_particleIndex].enableEmission = true;
-        _particleIndex++;
-        _currentThresholdLevel -= _thresholdLevelJump;
+        else
+        {
+            while (_damagableObject.HitPoints > _thresholdMax
+            && _particleIndex > 0)
+            {
+                _particleIndex--;
+                Debug.Log(string.Format("Disabled particle: {0}", _particleIndex));
+                Particles[_particleIndex].enableEmission = false;
+                _thresholdMin += _thresholdLevelJump;
+                _thresholdMax += _thresholdLevelJump;
+            }
+        }
     }
 
     #endregion

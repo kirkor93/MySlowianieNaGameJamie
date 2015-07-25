@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Gate : MonoBehaviour 
+public class Gate : MonoBehaviour, IDamagable
 {
     public GameObject AButton;
     public Transform LeftSide;
     public Transform RightSide;
     public float GateOpenCloseSpeed = 3.0f;
     public float GateOpeningAngle = 80.0f;
+    public float StartHitPoints = 500.0f;
 
     public AudioClip[] Clips;
 
@@ -23,16 +24,27 @@ public class Gate : MonoBehaviour
     protected Vector3 _desiredRightSideRotation;
     protected Vector3 _leftSideInitRotation;
     protected Vector3 _rightSideInitRotation;
+
     protected float _timer = 0.0f;
 
     protected AudioSource _myAudioSource;
 
     protected List<PlayerController> _playerControllerScript = new List<PlayerController>();
 
+    public float HitPoints
+    {
+        get { return _hp; }
+    }
+
+    public float MaxHitPoints
+    {
+        get { return StartHitPoints; }
+    }
+
     void OnEnable()
     {
         _myAudioSource = GetComponent<AudioSource>();
-        _hp = 500.0f;
+        _hp = StartHitPoints;
         IsDestroyed = false;
         GameManager.Instance.OnGamePeriodChange += OnGamePeriodChange;
         _leftSideInitRotation = LeftSide.transform.eulerAngles;
@@ -50,7 +62,7 @@ public class Gate : MonoBehaviour
                 if(InputManager.Instance.GetAButton(pc.PlayerIndex))
                 {
                     AButton.SetActive(false);
-                    _hp = 500.0f;
+                    _hp = MaxHitPoints;
                 }
             }
         }
@@ -116,7 +128,7 @@ public class Gate : MonoBehaviour
 
     public void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Player") && _hp < 500.0f)
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player") && _hp < MaxHitPoints)
         {
             _playerControllerScript.Add(col.gameObject.GetComponent<PlayerController>());
             AButton.SetActive(true);
