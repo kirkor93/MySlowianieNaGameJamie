@@ -6,11 +6,21 @@ public class Resource : MonoBehaviour {
     public ResourceType Type;
 
     private GameObject _aButton;
+    private AudioSource _myAudioSource;
+    private MeshRenderer _myRenderer;
+    private BoxCollider[] _boxColliders;
 
     private bool _canCollect = true;
 
 	// Use this for initialization
 	void Start () {
+        _myAudioSource = GetComponent<AudioSource>();
+        _myRenderer = GetComponent<MeshRenderer>();
+        if(_myRenderer == null)
+        {
+            _myRenderer = GetComponentInChildren<MeshRenderer>();
+        }
+        _boxColliders = GetComponents<BoxCollider>();
         _aButton = transform.GetChild(0).gameObject;
         GameManager.Instance.OnGamePeriodChange += OnChangePeriod;
 	}
@@ -22,7 +32,14 @@ public class Resource : MonoBehaviour {
 
     private void OnChangePeriod()
     {
-        _canCollect = !_canCollect;
+        if(GameManager.Instance.Period == GamePeriod.Collect)
+        {
+            _canCollect = true;
+        }
+        else
+        {
+            _canCollect = false;
+        }
         if(!_canCollect)
         {
             _aButton.SetActive(false);
@@ -49,6 +66,12 @@ public class Resource : MonoBehaviour {
 
     public void Collect()
     {
+        _myAudioSource.Play();
+        _myRenderer.enabled = false;
+        foreach(BoxCollider box in _boxColliders)
+        {
+            box.enabled = false;
+        }
         _aButton.SetActive(false);
         switch(Type)
         {
@@ -66,7 +89,8 @@ public class Resource : MonoBehaviour {
                 break;
         }
         GameManager.Instance.OnGamePeriodChange -= OnChangePeriod;
-        Destroy(this.gameObject);
+        
+        //Destroy(this.gameObject);
     }
      
 }
