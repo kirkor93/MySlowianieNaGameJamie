@@ -10,6 +10,13 @@ public class CityHall : MonoBehaviour, IDamagable
     public GameObject Upgrade2;
     public GameObject Upgrade3;
 
+    public List<GameObject> GatesUpgrade1;
+    public List<GameObject> GatesUpgrade2;
+    public List<GameObject> GatesUpgrade3;
+    public List<GameObject> WallsUpgrade1;
+    public List<GameObject> WallsUpgrade2;
+    public List<GameObject> WallsUpgrade3;
+
     private AudioSource _myAudioSource;
     protected bool _isPlayerClose = false;
     protected List<PlayerController> _playerControllerScripts = new List<PlayerController>();
@@ -47,23 +54,17 @@ public class CityHall : MonoBehaviour, IDamagable
                     switch(_upgradeLevel)
                     {
                         case 1:
-                            Upgrade1.SetActive(true);
-                            Upgrade2.SetActive(false);
-                            Upgrade3.SetActive(false);
+                            Upgrade(true, false, false);
                             VillageController.Instance.VillageHP = 10.0f;
                             VillageController.Instance.StartHp = 10.0f;
                             break;
                         case 2:
-                            Upgrade1.SetActive(false);
-                            Upgrade2.SetActive(true);
-                            Upgrade3.SetActive(false);
+                            Upgrade(false, true, false);
                             VillageController.Instance.VillageHP += 5.0f;
                             VillageController.Instance.StartHp += 5.0f;
                             break;
                         case 3:
-                            Upgrade1.SetActive(false);
-                            Upgrade2.SetActive(false);
-                            Upgrade3.SetActive(true);
+                            Upgrade(false, false, true);
                             AButton.SetActive(false);
                             VillageController.Instance.VillageHP += 5.0f;
                             VillageController.Instance.StartHp += 5.0f;
@@ -73,6 +74,39 @@ public class CityHall : MonoBehaviour, IDamagable
             }
         }
 	}
+
+    void Upgrade(bool level1, bool level2, bool level3)
+    {
+        Upgrade1.SetActive(level1);
+        foreach(GameObject go in GatesUpgrade1)
+        {
+            go.SetActive(level1);
+        }
+        foreach(GameObject go in WallsUpgrade1)
+        {
+            go.SetActive(level1);
+        }
+
+        Upgrade2.SetActive(level2);
+        foreach (GameObject go in GatesUpgrade2)
+        {
+            go.SetActive(level2);
+        }
+        foreach (GameObject go in WallsUpgrade2)
+        {
+            go.SetActive(level2);
+        }
+
+        Upgrade3.SetActive(level3);
+        foreach (GameObject go in GatesUpgrade3)
+        {
+            go.SetActive(level3);
+        }
+        foreach (GameObject go in WallsUpgrade3)
+        {
+            go.SetActive(level3);
+        }
+    }
 
     public void DecreaseHealth()
     {
