@@ -46,6 +46,11 @@ public class Enemy : MonoBehaviour
     void OnEnable()
     {
         _hp = 50.0f;
+        if (_myAgent == null)
+        {
+            _myAgent = GetComponent<NavMeshAgent>();
+        }
+        ResumeNavMeshAgent(Vector3.zero);
     }
 	
 	// Update is called once per frame
