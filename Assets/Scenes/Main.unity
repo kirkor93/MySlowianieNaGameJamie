@@ -87,6 +87,79 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 23800000, guid: 16ca6187c8e2a634db998bbcc00e0116, type: 2}
+--- !u!1 &9414923 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 84bf8c951d15dbe458f5f467f9a8ddf3, type: 3}
+  m_PrefabInternal: {fileID: 25195618}
+--- !u!82 &9414926
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 9414923}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &10157464
 GameObject:
   m_ObjectHideFlags: 0
@@ -2452,6 +2525,7 @@ MonoBehaviour:
   AttackDelay: .150000006
   StunDuration: 3
   BasePlayerHP: 100
+  Clips: []
 --- !u!54 &526243248
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4958,6 +5032,7 @@ MonoBehaviour:
   AttackDelay: .150000006
   StunDuration: 3
   BasePlayerHP: 100
+  Clips: []
 --- !u!54 &1095942553
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5844,6 +5919,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 419738, guid: 132495b8077edab4b80f762b183e82e8, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -.0299999993
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 132495b8077edab4b80f762b183e82e8, type: 2}
   m_IsPrefabParent: 0
@@ -6253,6 +6332,10 @@ Prefab:
       propertyPath: PlayerFour
       value: 
       objectReference: {fileID: 526243244}
+    - target: {fileID: 11474202, guid: 062c5e536920c404eb34c1e505fc489f, type: 2}
+      propertyPath: CollectPeriodDuration
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 062c5e536920c404eb34c1e505fc489f, type: 2}
   m_IsPrefabParent: 0
@@ -6503,6 +6586,7 @@ MonoBehaviour:
   AttackDelay: .150000006
   StunDuration: 3
   BasePlayerHP: 100
+  Clips: []
 --- !u!54 &1384569217
 Rigidbody:
   m_ObjectHideFlags: 0
