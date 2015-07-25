@@ -70,6 +70,7 @@ public class GameManager : Singleton<GameManager>
     
     private void Update()
     {
+        Debug.Log("Period = " + Period);
         if(VillageController.Instance.VillageHP <= 0 )
         {
             Debug.LogWarning("Game Over");
@@ -86,9 +87,6 @@ public class GameManager : Singleton<GameManager>
                     sp.SpawnEnemies();
                 }
                 WaveCounter += 1;
-                EnemiesCount = BaseEnemiesCount + EnemiesIncreasePerWaveValue * BaseEnemiesCount;
-                //Debug shieet
-                if (WaveCounter == 1) EnemiesCount = 1;
                 OnGamePeriodChange();
             }
         }

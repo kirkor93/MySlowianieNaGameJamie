@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour {
 
     private void OnPeriodChange()
     {
-        Debug.Log("Period change");
         _collectPeriod = !_collectPeriod;
     }
 	
