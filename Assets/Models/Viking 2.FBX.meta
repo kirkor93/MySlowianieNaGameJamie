@@ -1,61 +1,16 @@
 fileFormatVersion: 2
-guid: 873734c45572a094c9d837524a8dc039
-timeCreated: 1437835653
+guid: d6965a558832ec745b283154c3d06431
+timeCreated: 1437835742
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: Beard
-    100002: Da axe
-    100004: Dat nose
-    100006: Eyes
-    100008: Hand L
-    100010: Hand R
-    100012: Hands
-    100014: Head
-    100016: Helmet
-    100018: Leg L
-    100020: Leg R
-    100022: Legs
-    100024: Root
-    100026: //RootNode
-    400000: Beard
-    400002: Da axe
-    400004: Dat nose
-    400006: Eyes
-    400008: Hand L
-    400010: Hand R
-    400012: Hands
-    400014: Head
-    400016: Helmet
-    400018: Leg L
-    400020: Leg R
-    400022: Legs
-    400024: Root
-    400026: //RootNode
-    2300000: Beard
-    2300002: Da axe
-    2300004: Dat nose
-    2300006: Eyes
-    2300008: Head
-    2300010: Helmet
-    3300000: Beard
-    3300002: Da axe
-    3300004: Dat nose
-    3300006: Eyes
-    3300008: Head
-    3300010: Helmet
-    4300000: Legs
-    4300002: Hands
-    4300004: Helmet
-    4300006: Beard
-    4300008: Dat nose
-    4300010: Eyes
-    4300012: Head
-    4300014: Da axe
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Da axe
     9500000: //RootNode
-    13700000: Hands
-    13700002: Legs
   materials:
     importMaterials: 1
     materialName: 0
