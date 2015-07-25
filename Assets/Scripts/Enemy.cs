@@ -59,7 +59,7 @@ public class Enemy : MonoBehaviour
                 _myAnimator.SetBool("PlayerClose", true);
                 if(_targetGateScript.IsDestroyed)
                 {
-                    Destroy(_targetGateScript.gameObject);
+                    _gateTarget.SetActive(false);
                     _gateClose = false;
                     ResumeNavMeshAgent(Vector3.zero);
                     _gateInSight = false;

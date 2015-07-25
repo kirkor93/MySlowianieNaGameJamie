@@ -90,9 +90,11 @@ public class GameManager : Singleton<GameManager>
             if(_collectPeriodTimer > CollectPeriodDuration)
             {
                 Period = GamePeriod.Defense;
+                EnemiesCount = 0;
                 foreach(SpawnPoint sp in SpawnPoints)
                 {
                     sp.SpawnEnemies();
+                    EnemiesCount += sp.Enemies.Count;
                 }
                 WaveCounter += 1;
                 OnGamePeriodChange();

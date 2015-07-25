@@ -45,7 +45,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  CollectPeriodDuration: 5
+  CollectPeriodDuration: 120
   CollectDurationPerPeriod: 0
   WaveCounter: 0
   EnemiesCount: 0

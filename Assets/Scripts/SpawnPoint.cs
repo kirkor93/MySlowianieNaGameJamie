@@ -16,7 +16,7 @@ public class SpawnPoint : MonoBehaviour
     {
         GameManager.Instance.OnGamePeriodChange += OnGamePeriodChange;
         _enemiesCount = Enemies.Count;
-        _spawnCooldown = Random.Range(2.0f, 5.0f);
+        _spawnCooldown = Random.Range(0.1f, 0.5f);
     }
 
     void Update()
@@ -38,7 +38,6 @@ public class SpawnPoint : MonoBehaviour
                     _timer = 0.0f;
                     _lastEnemyIndex = 0;
                     _enemiesCount = Enemies.Count;
-                    GameManager.Instance.EnemiesCount = _enemiesCount;
                 }
             }
         }
