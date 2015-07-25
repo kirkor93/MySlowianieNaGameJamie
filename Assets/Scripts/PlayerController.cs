@@ -108,9 +108,7 @@ public class PlayerController : MonoBehaviour {
             }
             else
             {
-                _attackTimer += Time.deltaTime;
-
-                if (InputManager.Instance.GetAButton(PlayerIndex) && _attackTimer > AttackDelay)
+                if (InputManager.Instance.GetAButton(PlayerIndex))
                 {
                     Debug.Log("Attack");
                     _myAnimator.SetBool("AttackEnemy", true);

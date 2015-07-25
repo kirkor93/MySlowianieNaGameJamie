@@ -41,10 +41,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Period: 0
   SpawnPoints:
-  - {fileID: 11491674, guid: 9c22d7114c66f7743b1ea2cea39fe74a, type: 2}
-  - {fileID: 11409182, guid: 2ae048f2d5008484784f35ee61cc5fdd, type: 2}
-  - {fileID: 11460516, guid: efffc55035fc8a645a3396f0ec761225, type: 2}
-  - {fileID: 11462516, guid: d74a02674c767ee44908b47f98af0797, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   CollectPeriodDuration: 5
   CollectDurationPerPeriod: 0
   WaveCounter: 0

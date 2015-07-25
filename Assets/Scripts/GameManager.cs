@@ -17,6 +17,14 @@ public class GameManager : Singleton<GameManager>
 
     private float _collectPeriodTimer = 0.0f;
 
+    public float TimeLeft
+    {
+        get
+        {
+            return CollectPeriodDuration - _collectPeriodTimer;
+        }
+    }
+
     //Defense
     [HideInInspector]
     public int WaveCounter = 0;
