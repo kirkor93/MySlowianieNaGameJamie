@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: caca8fee65c1742448cfe9fdb5329c20
-timeCreated: 1437816269
+guid: f20223112791cd64ca96357ecd251c4b
+timeCreated: 1437834123
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -43,8 +43,9 @@ ModelImporter:
     4300006: Hands
     4300008: Cape
     7400000: Walk
-    7400002: GetHit
-    7400004: Attack
+    7400002: Attack
+    7400004: GetHit
+    7400006: Idle
     9500000: //RootNode
     13700000: Cape
     13700002: Hands
@@ -82,7 +83,65 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Cape
+        weight: 1
+      - path: Hands
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: IK Chain001
+        weight: 1
+      - path: Legs
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Cape root
+        weight: 1
+      - path: Root/Cape root/Cape 2
+        weight: 1
+      - path: Root/Cape root/Cape 2/Cape 3
+        weight: 1
+      - path: Root/Cape root/Cape 2/Cape 3/Cape 4
+        weight: 1
+      - path: Root/Hand L
+        weight: 1
+      - path: Root/Hand R
+        weight: 1
+      - path: Root/Leg L
+        weight: 1
+      - path: Root/Leg R
+        weight: 1
+      - path: Sword
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Attack
+      takeName: Take 001
+      firstFrame: 80
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -188,10 +247,10 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Attack
+      name: Idle
       takeName: Take 001
-      firstFrame: 80
-      lastFrame: 120
+      firstFrame: 160
+      lastFrame: 180
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
