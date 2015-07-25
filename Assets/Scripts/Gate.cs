@@ -23,6 +23,7 @@ public class Gate : MonoBehaviour
 
     void OnEnable()
     {
+
         _hp = 500.0f;
         IsDestroyed = false;
         GameManager.Instance.OnGamePeriodChange += OnGamePeriodChange;
@@ -42,6 +43,7 @@ public class Gate : MonoBehaviour
             if(_timer >= 1.0f)
             {
                 _openGate = false;
+                GetComponent<BoxCollider>().enabled = false;
             }
         }
         else if(_closeGate)
@@ -52,6 +54,7 @@ public class Gate : MonoBehaviour
             if (_timer >= 1.0f)
             {
                 _closeGate = false;
+                GetComponent<BoxCollider>().enabled = true;
             }
         }
     }
@@ -62,6 +65,7 @@ public class Gate : MonoBehaviour
         if(_hp <= 0.0f)
         {
             IsDestroyed = true;
+            GetComponent<BoxCollider>().enabled = false;
         }
     }
 
