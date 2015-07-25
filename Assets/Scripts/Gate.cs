@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Gate : MonoBehaviour 
 {
+    public GameObject AButton;
     public Transform LeftSide;
     public Transform RightSide;
     public float GateOpenCloseSpeed = 3.0f;
@@ -21,6 +23,8 @@ public class Gate : MonoBehaviour
     protected Vector3 _rightSideInitRotation;
     protected float _timer = 0.0f;
 
+    protected List<PlayerController> _playerControllerScript = new List<PlayerController>();
+
     void OnEnable()
     {
 
@@ -35,6 +39,22 @@ public class Gate : MonoBehaviour
 
     void Update()
     {
+        if(_playerControllerScript.Count > 0)
+        {
+            foreach(PlayerController pc in _playerControllerScript)
+            {
+                if(InputManager.Instance.GetAButton(pc.PlayerIndex))
+                {
+                    AButton.SetActive(false);
+                    _hp = 500.0f;
+                }
+            }
+        }
+        else if(AButton.activeSelf)
+        {
+            AButton.SetActive(false);
+        }
+
         if(_openGate)
         {
             _timer += Time.deltaTime * GateOpenCloseSpeed;
@@ -81,6 +101,23 @@ public class Gate : MonoBehaviour
         {
             _openGate = false;
             _closeGate = true;
+        }
+    }
+
+    public void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player") && _hp < 500.0f)
+        {
+            _playerControllerScript.Add(col.gameObject.GetComponent<PlayerController>());
+            AButton.SetActive(true);
+        }
+    }
+
+    public void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            _playerControllerScript.Remove(col.gameObject.GetComponent<PlayerController>());
         }
     }
 }

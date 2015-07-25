@@ -30,7 +30,6 @@ public class SpawnPoint : MonoBehaviour
                 Enemies[_lastEnemyIndex].SetActive(true);
                 ++_lastEnemyIndex;
                 --_enemiesCount;
-                --GameManager.Instance.EnemiesCount;
                 _timer = 0.0f;
                 if(_enemiesCount <= 0)
                 {

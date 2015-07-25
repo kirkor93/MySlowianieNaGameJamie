@@ -32,8 +32,8 @@ public class HUDScript : MonoBehaviour
             return "00:00";
         }
         float timeLeft = GameManager.Instance.TimeLeft;
-        int minutes = (int)(timeLeft / 30.0f);
-        int seconds = (int)((timeLeft - minutes * 30.0f) * 2.0f);
+        int minutes = (int)(timeLeft / 60.0f);
+        int seconds = (int)((timeLeft - minutes * 60.0f));
         string time = "";
         if(minutes < 10)
         {
