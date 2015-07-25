@@ -43,8 +43,8 @@ public class PlayerController : MonoBehaviour {
 
     public bool ResourceInRange
     {
-        get;
-        set;
+        get{ return _resourceInRange; }
+        set{ _resourceInRange = value; }
     }
 
     public bool IsStuned
