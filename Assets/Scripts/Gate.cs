@@ -10,6 +10,8 @@ public class Gate : MonoBehaviour
     public float GateOpenCloseSpeed = 3.0f;
     public float GateOpeningAngle = 80.0f;
 
+    public AudioClip[] Clips;
+
     protected float _hp;
 
     public bool IsDestroyed { get; protected set; }
@@ -59,7 +61,8 @@ public class Gate : MonoBehaviour
 
         if(_openGate)
         {
-            _myAudioSource.Play();
+            _myAudioSource.volume = 0.2f;
+            _myAudioSource.PlayOneShot(Clips[0]);
             _timer += Time.deltaTime * GateOpenCloseSpeed;
             RightSide.transform.eulerAngles = Vector3.Lerp(_rightSideInitRotation, _desiredRightSideRotation, _timer);
             LeftSide.transform.eulerAngles = Vector3.Lerp(_leftSideInitRotation, _desiredLeftSideRotation, _timer);
@@ -71,7 +74,8 @@ public class Gate : MonoBehaviour
         }
         else if(_closeGate)
         {
-            _myAudioSource.Play();
+            _myAudioSource.volume = 0.2f;
+            _myAudioSource.PlayOneShot(Clips[0]);
             _timer += Time.deltaTime * GateOpenCloseSpeed;
             RightSide.transform.eulerAngles = Vector3.Lerp(_desiredRightSideRotation, _rightSideInitRotation, _timer);
             LeftSide.transform.eulerAngles = Vector3.Lerp(_desiredLeftSideRotation, _leftSideInitRotation, _timer);
@@ -86,6 +90,8 @@ public class Gate : MonoBehaviour
     public void DecreaseHealth(float dmg)
     {
         _hp -= dmg;
+        _myAudioSource.volume = 1.0f;
+        _myAudioSource.PlayOneShot(Clips[1]);
         if(_hp <= 0.0f)
         {
             IsDestroyed = true;

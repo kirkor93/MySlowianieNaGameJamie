@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public float AttackDamage = 10.0f;
     public float GateAttackDamage = 50.0f;
+    public AudioClip[] Clips;
 
     protected NavMeshAgent _myAgent;
 
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
 
     protected float _hp;
 
+    protected AudioSource _myAudioSource;
     protected Rigidbody _myRigidbody;
     protected Animator _myAnimator;
 
@@ -33,6 +35,7 @@ public class Enemy : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+        _myAudioSource = GetComponent<AudioSource>();
         _myRigidbody = GetComponent<Rigidbody>();
         _myAnimator = GetComponent<Animator>();
         _myAgent = GetComponent<NavMeshAgent>();
@@ -204,6 +207,7 @@ public class Enemy : MonoBehaviour
     {
         if(col.gameObject.layer == LayerMask.NameToLayer("CityHall"))
         {
+            _myAudioSource.PlayOneShot(Clips[2]);
             col.gameObject.GetComponent<CityHall>().DecreaseHealth();
             Destroy(gameObject);
         }
@@ -211,12 +215,14 @@ public class Enemy : MonoBehaviour
 
     public void AnimationGetHitEvent()
     {
+        _myAudioSource.PlayOneShot(Clips[1]);
         _myAnimator.SetBool("IsGettingHit", false);
         ResumeNavMeshAgent(_destinationBeforeGetHit);
     }
 
     public void AnimationAttackEvent()
     {
+        _myAudioSource.PlayOneShot(Clips[0]);
         if(_gateClose)
         {
             _targetGateScript.DecreaseHealth(GateAttackDamage);
