@@ -1,7 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum PlayerIndexEnum
+{
+    PlayerOne,
+    PlayerTwo,
+    PlayerThree,
+    PlayerFour
+}
+
 public class PlayerController : MonoBehaviour {
+
+    public PlayerIndexEnum PlayerIndex = PlayerIndexEnum.PlayerOne;
 
     public float SpeedMultiplier = 1.0f;
     public float RotationSpeed = 1.0f;
@@ -34,6 +44,11 @@ public class PlayerController : MonoBehaviour {
         set;
     }
 
+    public bool IsStuned
+    {
+        get { return _stunned; }
+    }
+
 	// Use this for initialization
 	void Start () {
         _playerHP = BasePlayerHP;
@@ -64,7 +79,7 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-            Vector3 move = InputManager.Instance.GetLeftStick();
+            Vector3 move = InputManager.Instance.GetLeftStick(PlayerIndex);
             transform.position += move * Time.deltaTime * SpeedMultiplier;
 
             if(move != Vector3.zero)transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.LookRotation(move), Time.deltaTime * RotationSpeed);
@@ -73,7 +88,7 @@ public class PlayerController : MonoBehaviour {
             {
 	            if(_resourceInRange)
                 {
-                    if(InputManager.Instance.GetAButton())
+                    if (InputManager.Instance.GetAButton(PlayerIndex))
                     {
                         _currentResource.Collect();
                         _resourceInRange = false;
@@ -84,8 +99,8 @@ public class PlayerController : MonoBehaviour {
             else
             {
                 _attackTimer += Time.deltaTime;
-            
-                if(InputManager.Instance.GetAButton() && _attackTimer > AttackDelay)
+
+                if (InputManager.Instance.GetAButton(PlayerIndex) && _attackTimer > AttackDelay)
                 {
                     Debug.Log("Attack");
                     //Play Anim :3
