@@ -49,7 +49,6 @@ public class Tower : MonoBehaviour
 
     protected void OnTriggerEnter(Collider col)
     {
-        Debug.Log("Hello");
         if(_enemy != null)
         {
             return;
