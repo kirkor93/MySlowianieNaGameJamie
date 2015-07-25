@@ -28,7 +28,7 @@ public class Resource : MonoBehaviour {
         _aButton = transform.GetChild(0).gameObject;
         GameManager.Instance.OnGamePeriodChange += OnChangePeriod;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 	
@@ -39,6 +39,11 @@ public class Resource : MonoBehaviour {
         if(GameManager.Instance.Period == GamePeriod.Collect)
         {
             _canCollect = true;
+            _myRenderer.enabled = true;
+            foreach (BoxCollider box in _boxColliders)
+            {
+                box.enabled = true;
+            }
         }
         else
         {
@@ -71,6 +76,7 @@ public class Resource : MonoBehaviour {
     {
         _myAudioSource.Play();
         _myRenderer.enabled = false;
+        _canCollect = false;
         foreach(BoxCollider box in _boxColliders)
         {
             box.enabled = false;
