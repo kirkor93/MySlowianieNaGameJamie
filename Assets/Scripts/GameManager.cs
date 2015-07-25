@@ -7,6 +7,8 @@ public class GameManager : Singleton<GameManager>
     //[HideInInspector]
     public GamePeriod Period;
     public List<SpawnPoint> SpawnPoints;
+    public Transform RestrictionPointOne;
+    public Transform RestrictionPointTwo;
 
     public delegate void GamePeriodDelegate();
     public event GamePeriodDelegate OnGamePeriodChange;
