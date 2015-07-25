@@ -39,28 +39,37 @@ public class TowerSlot : MonoBehaviour
                     case TowerKindEnum.None:
                         TowerCard.gameObject.SetActive(true);
                         TowerCard.SetTowerSlot(this);
+                        TowerCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         CannonCard.gameObject.SetActive(true);
                         CannonCard.SetTowerSlot(this);
+                        CannonCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         MortarCard.gameObject.SetActive(true);
                         MortarCard.SetTowerSlot(this);
+                        MortarCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         break;
                     case TowerKindEnum.Tower:
                         CannonCard.gameObject.SetActive(true);
                         CannonCard.SetTowerSlot(this);
+                        CannonCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         MortarCard.gameObject.SetActive(true);
                         MortarCard.SetTowerSlot(this);
+                        MortarCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         break;
                     case TowerKindEnum.Cannon:
                         TowerCard.gameObject.SetActive(true);
                         TowerCard.SetTowerSlot(this);
+                        TowerCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         MortarCard.gameObject.SetActive(true);
                         MortarCard.SetTowerSlot(this);
+                        MortarCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         break;
                     case TowerKindEnum.Mortar:
                         TowerCard.gameObject.SetActive(true);
                         TowerCard.SetTowerSlot(this);
+                        TowerCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         CannonCard.gameObject.SetActive(true);
                         CannonCard.SetTowerSlot(this);
+                        CannonCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         break;
                 }
             }
