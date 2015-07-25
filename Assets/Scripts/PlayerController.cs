@@ -28,8 +28,6 @@ public class PlayerController : MonoBehaviour {
 
     private bool _stunned = false;
     private float _stunTimer = 0.0f;
-    private bool _attackFlag = false;
-    private float _attackTimer = 0.0f;
 
     private bool _resourceInRange = false;
     private bool _collectPeriod = true;
@@ -88,11 +86,11 @@ public class PlayerController : MonoBehaviour {
             {
                 transform.position += move * Time.deltaTime * SpeedMultiplier;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(move), Time.deltaTime * RotationSpeed);
-                //Walk
+                _myAnimator.SetBool("Walk", true);
             }
             else
             {
-                //Iddle
+                _myAnimator.SetBool("Walk", false);
             }
             if (_collectPeriod)
             {
@@ -108,9 +106,7 @@ public class PlayerController : MonoBehaviour {
             }
             else
             {
-                _attackTimer += Time.deltaTime;
-
-                if (InputManager.Instance.GetAButton(PlayerIndex) && _attackTimer > AttackDelay)
+                if (InputManager.Instance.GetAButton(PlayerIndex) && !_myAnimator.GetBool("AttackEnemy"))
                 {
                     Debug.Log("Attack");
                     _myAnimator.SetBool("AttackEnemy", true);
@@ -153,15 +149,12 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerExit(Collider col)
     {
-        if (_attackFlag)
+        if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            Enemy tmpEnemy = col.gameObject.GetComponent<Enemy>();
+            if (tmpEnemy != null && _targets.Contains(tmpEnemy))
             {
-                Enemy tmpEnemy = col.gameObject.GetComponent<Enemy>();
-                if(tmpEnemy != null && _targets.Contains(tmpEnemy))
-                {
-                    _targets.Remove(tmpEnemy);
-                }
+                _targets.Remove(tmpEnemy);
             }
         }
     }
@@ -177,6 +170,10 @@ public class PlayerController : MonoBehaviour {
         {
             enemy.DecreaseHealth(5.0f);
         }
+    }
+
+    public void AnimationAttackFalse()
+    {
         _myAnimator.SetBool("AttackEnemy", false);
     }
 
