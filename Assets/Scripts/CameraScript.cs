@@ -68,7 +68,6 @@ public class CameraScript : MonoBehaviour
                 }
                 Vector3 backVector = (Vector3.up + Vector3.back) * (MinimalDistance + farestDistance);
                 backVector = Quaternion.AngleAxis(transform.rotation.x, Vector3.right) * backVector;
-                //Debug.Log(transform.position + " " + _center + " " + backVector);
                 transform.position = Vector3.Lerp(transform.position, _center + backVector, CameraMovingSpeed);
             }
             else

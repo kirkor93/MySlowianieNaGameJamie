@@ -1,23 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : MonoBehaviour 
+{
+    public float Speed = 1.0f;
 
     protected GameObject _target;
     protected Enemy _targetEnemyScript;
     protected float _damage;
 
-    private Vector3 _initPosition;
-    private float _timer = 0.0f;
+    protected Vector3 _initPosition;
+    protected float _timer = 0.0f;
 
     // Use this for initialization
     void Start()
     {
         _initPosition = transform.position;
+        OnPositionsSet();
+    }
+
+    protected virtual void OnPositionsSet()
+    {
+
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (_targetEnemyScript.IsDead)
         {
@@ -26,11 +34,10 @@ public class Bullet : MonoBehaviour {
         else
         {
             transform.position = Vector3.Lerp(_initPosition, _target.transform.position, _timer);
-            _timer += Time.deltaTime;
+            _timer += Speed * Time.deltaTime;
             if (_timer >= 1.0f)
             {
                 _targetEnemyScript.DecreaseHealth(_damage);
-                Debug.Log(_damage);
                 OnDamage();
                 Destroy(gameObject);
             }

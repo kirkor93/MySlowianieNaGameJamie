@@ -13,6 +13,7 @@ public class Tower : MonoBehaviour
     protected float _attackCooldown;
 
     public GameObject BulletPrefab;
+    public Transform ShootingPosition;
 
     public float Damage
     {
@@ -42,7 +43,7 @@ public class Tower : MonoBehaviour
         {
             return;
         }
-        GameObject bullet = Instantiate(BulletPrefab, this.transform.position, BulletPrefab.transform.rotation) as GameObject;
+        GameObject bullet = Instantiate(BulletPrefab, ShootingPosition.position, BulletPrefab.transform.rotation) as GameObject;
         bullet.SendMessage("SetTarget", _enemy);
         bullet.SendMessage("SetDamage", _damage);
     }
