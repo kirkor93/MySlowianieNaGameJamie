@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum PlayerIndexEnum
 {
@@ -33,10 +34,11 @@ public class PlayerController : MonoBehaviour {
     private bool _resourceInRange = false;
     private bool _collectPeriod = true;
 
+    private Animator _myAnimator;
     private Rigidbody _myRigidbody;
     private Resource _currentResource;
 
-    private GameObject _weapon;
+    private List<Enemy> _targets;
 
     public bool ResourceInRange
     {
@@ -51,7 +53,9 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        _targets = new List<Enemy>();
         _playerHP = BasePlayerHP;
+        _myAnimator = GetComponent<Animator>();
         _myRigidbody = GetComponent<Rigidbody>();
         GameManager.Instance.OnGamePeriodChange += OnPeriodChange;
 
@@ -114,6 +118,7 @@ public class PlayerController : MonoBehaviour {
     public void DecreaseHealth(float value)
     {
         _playerHP -= value;
+        _myAnimator.SetBool("IsGettingHit", true);
         if(_playerHP <= 0.0f)
         {
             _stunned = true;
@@ -136,27 +141,38 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if(_attackFlag)
+        if(col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            if(col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-            {
-                col.gameObject.GetComponent<Enemy>().DecreaseHealth(5.0f);
-            }
-            _attackFlag = false;
+            _targets.Add(col.gameObject.GetComponent<Enemy>());
         }
     }
 
-    void OnTriggerStay(Collider col)
+    void OnTriggerExit(Collider col)
     {
         if (_attackFlag)
         {
             if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                col.gameObject.GetComponent<Enemy>().DecreaseHealth(5.0f);
+                Enemy tmpEnemy = col.gameObject.GetComponent<Enemy>();
+                if(tmpEnemy != null && _targets.Contains(tmpEnemy))
+                {
+                    _targets.Remove(tmpEnemy);
+                }
             }
-            _attackFlag = false;
         }
     }
 
+    public void AnimationGetHitEvent()
+    {
+        _myAnimator.SetBool("IsGettingHit", false);
+    }
+
+    public void AnimationAttackEvent()
+    {
+        foreach(Enemy enemy in _targets)
+        {
+            enemy.DecreaseHealth(5.0f);
+        }
+    }
 
 }
