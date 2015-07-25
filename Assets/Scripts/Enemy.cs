@@ -182,6 +182,7 @@ public class Enemy : MonoBehaviour
             _gateInSight = false;
             _gateClose = false;
             _myAgent.SetDestination(Vector3.zero);
+            _myAnimator.SetBool("PlayerClose", false);
         }
 
         if(col.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -190,6 +191,7 @@ public class Enemy : MonoBehaviour
             _playerInSight = false;
             _playerClose = false;
             _myAgent.SetDestination(Vector3.zero);
+            _myAnimator.SetBool("PlayerClose", false);
         }
     }
 
