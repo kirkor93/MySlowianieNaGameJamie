@@ -577,7 +577,7 @@ MonoBehaviour:
   BasePlayerHP: 100
   Clips:
   - {fileID: 8300000, guid: 22be7d9063443dd419d39c9ecb076d03, type: 3}
-  - {fileID: 8300000, guid: d1c9469180b9cd7448266e42df2c1336, type: 3}
+  - {fileID: 8300000, guid: 8ac436cc2a417ee409bac1b72b279143, type: 3}
 --- !u!135 &13553334
 SphereCollider:
   m_ObjectHideFlags: 1

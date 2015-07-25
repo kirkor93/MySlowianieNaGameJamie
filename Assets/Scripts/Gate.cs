@@ -2,13 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Gate : MonoBehaviour 
+public class Gate : MonoBehaviour, IDamagable
 {
     public GameObject AButton;
     public Transform LeftSide;
     public Transform RightSide;
     public float GateOpenCloseSpeed = 3.0f;
     public float GateOpeningAngle = 80.0f;
+    public float StartHitPoints = 500.0f;
+
+    public AudioClip[] Clips;
 
     protected float _hp;
 
@@ -21,16 +24,27 @@ public class Gate : MonoBehaviour
     protected Vector3 _desiredRightSideRotation;
     protected Vector3 _leftSideInitRotation;
     protected Vector3 _rightSideInitRotation;
+
     protected float _timer = 0.0f;
 
     protected AudioSource _myAudioSource;
 
     protected List<PlayerController> _playerControllerScript = new List<PlayerController>();
 
+    public float HitPoints
+    {
+        get { return _hp; }
+    }
+
+    public float MaxHitPoints
+    {
+        get { return StartHitPoints; }
+    }
+
     void OnEnable()
     {
         _myAudioSource = GetComponent<AudioSource>();
-        _hp = 500.0f;
+        _hp = StartHitPoints;
         IsDestroyed = false;
         GameManager.Instance.OnGamePeriodChange += OnGamePeriodChange;
         _leftSideInitRotation = LeftSide.transform.eulerAngles;
@@ -48,7 +62,7 @@ public class Gate : MonoBehaviour
                 if(InputManager.Instance.GetAButton(pc.PlayerIndex))
                 {
                     AButton.SetActive(false);
-                    _hp = 500.0f;
+                    _hp = MaxHitPoints;
                 }
             }
         }
@@ -59,7 +73,6 @@ public class Gate : MonoBehaviour
 
         if(_openGate)
         {
-            _myAudioSource.Play();
             _timer += Time.deltaTime * GateOpenCloseSpeed;
             RightSide.transform.eulerAngles = Vector3.Lerp(_rightSideInitRotation, _desiredRightSideRotation, _timer);
             LeftSide.transform.eulerAngles = Vector3.Lerp(_leftSideInitRotation, _desiredLeftSideRotation, _timer);
@@ -71,7 +84,6 @@ public class Gate : MonoBehaviour
         }
         else if(_closeGate)
         {
-            _myAudioSource.Play();
             _timer += Time.deltaTime * GateOpenCloseSpeed;
             RightSide.transform.eulerAngles = Vector3.Lerp(_desiredRightSideRotation, _rightSideInitRotation, _timer);
             LeftSide.transform.eulerAngles = Vector3.Lerp(_desiredLeftSideRotation, _leftSideInitRotation, _timer);
@@ -86,6 +98,8 @@ public class Gate : MonoBehaviour
     public void DecreaseHealth(float dmg)
     {
         _hp -= dmg;
+        _myAudioSource.volume = 1.0f;
+        _myAudioSource.PlayOneShot(Clips[1]);
         if(_hp <= 0.0f)
         {
             IsDestroyed = true;
@@ -100,17 +114,21 @@ public class Gate : MonoBehaviour
         {
             _openGate = true;
             _closeGate = false;
+            _myAudioSource.volume = 1.0f;
+            _myAudioSource.PlayOneShot(Clips[0]);
         }
         else
         {
             _openGate = false;
             _closeGate = true;
+            _myAudioSource.volume = 1.0f;
+            _myAudioSource.PlayOneShot(Clips[0]);
         }
     }
 
     public void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Player") && _hp < 500.0f)
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player") && _hp < MaxHitPoints)
         {
             _playerControllerScript.Add(col.gameObject.GetComponent<PlayerController>());
             AButton.SetActive(true);

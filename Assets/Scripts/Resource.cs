@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[SelectionBase]
 public class Resource : MonoBehaviour {
 
     public ResourceType Type;

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class VillageController : Singleton<VillageController> {
 
+    public readonly float StartHp = 10.0f;
+
     public float VillageHP
     {
         get;
@@ -61,7 +63,7 @@ public class VillageController : Singleton<VillageController> {
     public override void Awake()
     {
         base.Awake();
-        VillageHP = 10.0f;
+        VillageHP = StartHp;
 	}
 	
 	// Update is called once per frame
