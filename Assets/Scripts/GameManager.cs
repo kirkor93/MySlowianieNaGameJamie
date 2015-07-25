@@ -7,6 +7,8 @@ public class GameManager : Singleton<GameManager>
     //[HideInInspector]
     public GamePeriod Period;
     public List<SpawnPoint> SpawnPoints;
+    public Transform RestrictionPointOne;
+    public Transform RestrictionPointTwo;
 
     public delegate void GamePeriodDelegate();
     public event GamePeriodDelegate OnGamePeriodChange;
@@ -78,7 +80,7 @@ public class GameManager : Singleton<GameManager>
     
     private void Update()
     {
-        Debug.Log("Period = " + Period);
+//        Debug.Log("Period = " + Period);
         if(VillageController.Instance.VillageHP <= 0 )
         {
             Debug.LogWarning("Game Over");
