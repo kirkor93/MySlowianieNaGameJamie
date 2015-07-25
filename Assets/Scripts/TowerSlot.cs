@@ -23,6 +23,8 @@ public class TowerSlot : MonoBehaviour
     public Card CannonCard;
     public Card MortarCard;
 
+    public MeshRenderer TowerSlotMesh;
+
     protected TowerKindEnum _towerKind = TowerKindEnum.None;
 
     private bool _isPlayerCloseEnough = false;
@@ -48,6 +50,9 @@ public class TowerSlot : MonoBehaviour
                         MortarCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         break;
                     case TowerKindEnum.Tower:
+                        TowerCard.gameObject.SetActive(true);
+                        TowerCard.SetTowerSlot(this);
+                        TowerCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         CannonCard.gameObject.SetActive(true);
                         CannonCard.SetTowerSlot(this);
                         CannonCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
@@ -59,6 +64,9 @@ public class TowerSlot : MonoBehaviour
                         TowerCard.gameObject.SetActive(true);
                         TowerCard.SetTowerSlot(this);
                         TowerCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
+                        CannonCard.gameObject.SetActive(true);
+                        CannonCard.SetTowerSlot(this);
+                        CannonCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         MortarCard.gameObject.SetActive(true);
                         MortarCard.SetTowerSlot(this);
                         MortarCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
@@ -70,6 +78,10 @@ public class TowerSlot : MonoBehaviour
                         CannonCard.gameObject.SetActive(true);
                         CannonCard.SetTowerSlot(this);
                         CannonCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
+                        CannonCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
+                        MortarCard.gameObject.SetActive(true);
+                        MortarCard.SetTowerSlot(this);
+                        MortarCard.SetPlayerIndex(_nearestPlayerController.PlayerIndex);
                         break;
                 }
             }
@@ -90,16 +102,19 @@ public class TowerSlot : MonoBehaviour
                 Tower.SetActive(true);
                 Cannon.SetActive(false);
                 Mortar.SetActive(false);
+                TowerSlotMesh.enabled = false;
                 break;
             case TowerKindEnum.Cannon:
                 Tower.SetActive(false);
                 Cannon.SetActive(true);
                 Mortar.SetActive(false);
+                TowerSlotMesh.enabled = false;
                 break;
             case TowerKindEnum.Mortar:
                 Tower.SetActive(false);
                 Cannon.SetActive(false);
                 Mortar.SetActive(true);
+                TowerSlotMesh.enabled = false;
                 break;
         }
         TowerCard.gameObject.SetActive(false);
