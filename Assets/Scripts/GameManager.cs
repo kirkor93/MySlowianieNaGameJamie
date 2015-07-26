@@ -136,12 +136,15 @@ public class GameManager : Singleton<GameManager>
             {
                 Period = GamePeriod.Defense;
                 EnemiesCount = 0;
+                WaveCounter += 1;
                 foreach(SpawnPoint sp in SpawnPoints)
                 {
-                    sp.SpawnEnemies();
-                    EnemiesCount += sp.Enemies.Count;
+                    if (sp.CurrentRound >= WaveCounter)
+                    {
+                        sp.SpawnEnemies();
+                        EnemiesCount += sp.Enemies.Count;
+                    }
                 }
-                WaveCounter += 1;
                 OnGamePeriodChange();
                 _soundMuteTimer = 0.0f;
                 _changeSoundFlag = true;

@@ -15,6 +15,11 @@ public class SpawnPoint : MonoBehaviour
 
     private int _currentRound = 0;
 
+    public int CurrentRound
+    {
+        get { return _currentRound; }
+    }
+
     void OnEnable()
     {
         GameManager.Instance.OnGamePeriodChange += OnGamePeriodChange;
