@@ -54,6 +54,7 @@ public class Bullet : MonoBehaviour
         }
         _particle.transform.parent = null;
         _particle.enableEmission = true;
+        _particle.Emit(1);
     }
 
 	void SetTarget(GameObject target)
