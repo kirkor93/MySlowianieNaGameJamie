@@ -144,7 +144,6 @@ public class Enemy : MonoBehaviour
         if(_hp <= 0.0f)
         {
             GameManager.Instance.EnemiesCount -= 1;
-            _myAgent.Stop();
             _playerTarget = null;
             _gateTarget = null;
             GetComponent<Collider>().enabled = false;
