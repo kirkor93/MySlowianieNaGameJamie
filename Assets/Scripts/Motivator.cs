@@ -11,6 +11,7 @@ public class Motivator : MonoBehaviour {
     }
 
     private bool _moveLeft = true;
+    private AudioSource _myAudioSource;
     private Animator _myAnimator;
     private RectTransform _myRectTransform;
     private Vector3 _destinationPosition;
@@ -25,6 +26,7 @@ public class Motivator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        _myAudioSource = GetComponent<AudioSource>();
         _myAnimator = GetComponent<Animator>();
         _myRectTransform = GetComponent<RectTransform>();
         _mySpeach = GetComponentInChildren<Text>();
@@ -63,6 +65,7 @@ public class Motivator : MonoBehaviour {
     private void ChangeSpeachOnJustDoIt()
     {
         _mySpeach.text = _justDoItSpeach;
+        _myAudioSource.Play();
     }
 
     public void OnSpeachFinished()
