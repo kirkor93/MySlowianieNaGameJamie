@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class CityHall : MonoBehaviour, IDamagable
 {
     public GameObject AButton;
+    public GameObject GrayAButton;
     public AudioClip[] Clips;
     public GameObject Upgrade1;
     public GameObject Upgrade2;
@@ -46,32 +47,57 @@ public class CityHall : MonoBehaviour, IDamagable
     {
 	    if(_isPlayerClose)
         {
-            foreach(PlayerController pc in _playerControllerScripts)
+            UpgradeLvl upgLvl = UpgradeLvl.L1;
+            if(_upgradeLevel == 1)
             {
-                if(InputManager.Instance.GetAButton(pc.PlayerIndex))
+                upgLvl = UpgradeLvl.L2;
+            }
+            else if(_upgradeLevel == 2)
+            {
+                upgLvl = UpgradeLvl.L3;
+            }
+            else
+            {
+                return;
+            }
+            if(VillageController.Instance.CanUpgradeBuilding(BuildingType.Village, upgLvl))
+            {
+                AButton.SetActive(true);
+                GrayAButton.SetActive(false);
+                foreach (PlayerController pc in _playerControllerScripts)
                 {
-                    _upgradeLevel += 1;
-                    switch(_upgradeLevel)
+                    if (InputManager.Instance.GetAButton(pc.PlayerIndex))
                     {
-                        case 1:
-                            Upgrade(true, false, false);
-                            VillageController.Instance.VillageHP = 10.0f;
-                            VillageController.Instance.StartHp = 10.0f;
-                            break;
-                        case 2:
-                            Upgrade(false, true, false);
-                            VillageController.Instance.VillageHP += 5.0f;
-                            VillageController.Instance.StartHp += 5.0f;
-                            break;
-                        case 3:
-                            Upgrade(false, false, true);
-                            AButton.SetActive(false);
-                            VillageController.Instance.VillageHP += 5.0f;
-                            VillageController.Instance.StartHp += 5.0f;
-                            break;
+                        VillageController.Instance.BuyBuilding(BuildingType.Village, upgLvl);
+                        _upgradeLevel += 1;
+                        switch (_upgradeLevel)
+                        {
+                            case 1:
+                                Upgrade(true, false, false);
+                                VillageController.Instance.VillageHP = 10.0f;
+                                VillageController.Instance.StartHp = 10.0f;
+                                break;
+                            case 2:
+                                Upgrade(false, true, false);
+                                VillageController.Instance.VillageHP += 5.0f;
+                                VillageController.Instance.StartHp += 5.0f;
+                                break;
+                            case 3:
+                                Upgrade(false, false, true);
+                                AButton.SetActive(false);
+                                VillageController.Instance.VillageHP += 5.0f;
+                                VillageController.Instance.StartHp += 5.0f;
+                                break;
+                        }
                     }
                 }
             }
+            else
+            {
+                AButton.SetActive(false);
+                GrayAButton.SetActive(true);
+            }
+            
         }
 	}
 
@@ -119,7 +145,6 @@ public class CityHall : MonoBehaviour, IDamagable
         if(_upgradeLevel < 3 && col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             _isPlayerClose = true;
-            AButton.SetActive(true);
             _playerControllerScripts.Add(col.GetComponent<PlayerController>());
         }
     }
@@ -133,6 +158,7 @@ public class CityHall : MonoBehaviour, IDamagable
             if(!_isPlayerClose)
             {
                 AButton.SetActive(false);
+                GrayAButton.SetActive(false);
             }
         }
     }
