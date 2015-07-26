@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class VillageController : Singleton<VillageController> {
@@ -18,6 +19,8 @@ public class VillageController : Singleton<VillageController> {
     public ResourceCost VillageLvl1 = new ResourceCost(5, 2, 2, 6);
     public ResourceCost VillageLvl2 = new ResourceCost(4, 6, 2, 3);
     public ResourceCost VillageLvl3 = new ResourceCost(5, 3, 6, 2);
+
+    public event EventHandler<EventArgs> OnGameOver; 
     #endregion
 
     #region VillageHP and ResourcesValues Properties
@@ -95,6 +98,53 @@ public class VillageController : Singleton<VillageController> {
         FoodNeededValue = 15;
     }
 
+    void OnEnable()
+    {
+        Invoke("CalculateCosts", 0.3f);
+    }
+
+    void CalculateCosts()
+    {
+        int activePlayers = 0;
+        if(GameManager.Instance.PlayerFour.activeSelf)
+        {
+            ++activePlayers;
+        }
+        if(GameManager.Instance.PlayerOne.activeSelf)
+        {
+            ++activePlayers;
+        }
+        if (GameManager.Instance.PlayerThree.activeSelf)
+        {
+            ++activePlayers;
+        }
+        if (GameManager.Instance.PlayerTwo.activeSelf)
+        {
+            ++activePlayers;
+        }
+
+        Cost(TowerLvl1, activePlayers);
+        Cost(TowerLvl2, activePlayers);
+        Cost(TowerLvl3, activePlayers);
+        Cost(CannonLvl1, activePlayers);
+        Cost(CannonLvl2, activePlayers);
+        Cost(CannonLvl3, activePlayers);
+        Cost(MortarLvl1, activePlayers);
+        Cost(MortarLvl2, activePlayers);
+        Cost(MortarLvl3, activePlayers);
+        Cost(VillageLvl1, activePlayers);
+        Cost(VillageLvl2, activePlayers);
+        Cost(VillageLvl3, activePlayers);
+    }
+
+    void Cost(ResourceCost resource, int multiplier)
+    {
+        resource.FoodCost *= multiplier;
+        resource.IronCost *= multiplier;
+        resource.StoneCost *= multiplier;
+        resource.WoodCost *= multiplier;
+    }
+
     private void OnPeriodChange()
     {
         if(GameManager.Instance.Period == GamePeriod.Collect)
@@ -112,7 +162,11 @@ public class VillageController : Singleton<VillageController> {
         //Debug.Log(string.Format("Food {0} / Iron {1} / Stone {2} / Wood {3} /", FoodValue, IronValue, StoneValue, WoodValue));
         if(VillageHP <= 0.0f)
         {
-            Debug.LogError("CITY HALL IS DESTROYED!!");
+//            Debug.LogError("CITY HALL IS DESTROYED!!");
+            if (OnGameOver != null)
+            {
+                OnGameOver(this, EventArgs.Empty);
+            }
         }
 	}
 

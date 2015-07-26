@@ -11,6 +11,7 @@ public class MortarBall : Bullet
 
     protected override void OnPositionsSet()
     {
+        if (_target == null) return;
         _middlePosition = (_initPosition + _target.transform.position) / 2.0f;
         _middlePosition.y += 3.0f;
         _middlePositionReached = false;

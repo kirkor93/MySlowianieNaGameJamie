@@ -6,19 +6,12 @@ public class SpawnPoint : MonoBehaviour
 {
     public List<GameObject> Enemies;
     public float SpawnCooldown = 10.0f;
-    public int StartRound = 1;
+//    public int StartRound = 1;
 
     protected bool _spawnEnemies;
     protected int _enemiesCount = 0;
     protected int _lastEnemyIndex = 0;
     protected float _timer;
-
-    private int _currentRound = 0;
-
-    public int CurrentRound
-    {
-        get { return _currentRound; }
-    }
 
     void OnEnable()
     {
@@ -29,8 +22,7 @@ public class SpawnPoint : MonoBehaviour
 
     void Update()
     {
-        if(_spawnEnemies
-            && _currentRound >= StartRound)
+        if(_spawnEnemies)
         {
             _timer += Time.deltaTime;
             if(_timer >= SpawnCooldown)
@@ -58,13 +50,21 @@ public class SpawnPoint : MonoBehaviour
 
     void OnGamePeriodChange()
     {
-        _currentRound++;
+        _timer = 0.0f;
+        _lastEnemyIndex = 0;
+        _enemiesCount = Enemies.Count;
         if(GameManager.Instance.Period == GamePeriod.Collect)
         {
             foreach(GameObject enemy in Enemies)
             {
                 enemy.transform.position = transform.position;
                 enemy.transform.rotation = transform.rotation;
+            }
+            float rand = Random.Range(0.0f, 1.0f);
+            if (rand > 0.5f
+                && SpawnCooldown > 2)
+            {
+                SpawnCooldown -= 0.5f;
             }
         }
     }

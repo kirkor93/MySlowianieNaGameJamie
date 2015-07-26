@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour {
                 _playerHP = BasePlayerHP;
                 _stunned = false;
                 _starzParent.SetActive(false);
+                _hpBar.transform.GetChild(0).localScale = new Vector3(0.5f, 0.5f, 0.0f);
             }
         }
         else

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -14,9 +15,15 @@ public class HUDScript : MonoBehaviour
 	void Start () 
     {
         GameManager.Instance.OnGamePeriodChange += OnGamePeriodChange;
+        VillageController.Instance.OnGameOver += OnGameOver;
 	}
-	
-	// Update is called once per frame
+
+    private void OnGameOver(object sender, EventArgs eventArgs)
+    {
+        
+    }
+
+    // Update is called once per frame
 	void Update () 
     {
         FoodText.text = VillageController.Instance.FoodValue.ToString();
