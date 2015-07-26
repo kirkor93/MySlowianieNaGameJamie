@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Card : MonoBehaviour 
 {
+    public TextMesh Text;
     public TowerKindEnum TowerKind;
 
     protected TowerSlot _towerSlot;
@@ -95,5 +96,56 @@ public class Card : MonoBehaviour
     public void SetUpgradeLevel(UpgradeLvl upgradeLevel)
     {
         _upgradeLevel = upgradeLevel;
+        ResourceCost myResource = null;
+        switch(_buildingType)
+        {
+            case BuildingType.Tower:
+                switch(_upgradeLevel)
+                {
+                    case UpgradeLvl.L1:
+                        myResource = VillageController.Instance.TowerLvl1;
+                        break;
+                    case UpgradeLvl.L2:
+                        myResource = VillageController.Instance.TowerLvl2;
+                        break;
+                    case UpgradeLvl.L3:
+                        myResource = VillageController.Instance.TowerLvl3;
+                        break;
+                }
+                break;
+            case BuildingType.Cannon:
+                switch (_upgradeLevel)
+                {
+                    case UpgradeLvl.L1:
+                        myResource = VillageController.Instance.CannonLvl1;
+                        break;
+                    case UpgradeLvl.L2:
+                        myResource = VillageController.Instance.CannonLvl2;
+                        break;
+                    case UpgradeLvl.L3:
+                        myResource = VillageController.Instance.CannonLvl3;
+                        break;
+                }
+                break;
+            case BuildingType.Mortar:
+                switch (_upgradeLevel)
+                {
+                    case UpgradeLvl.L1:
+                        myResource = VillageController.Instance.MortarLvl1;
+                        break;
+                    case UpgradeLvl.L2:
+                        myResource = VillageController.Instance.MortarLvl2;
+                        break;
+                    case UpgradeLvl.L3:
+                        myResource = VillageController.Instance.MortarLvl3;
+                        break;
+                }
+                break;
+        }
+
+        Text.text = "Food: " + myResource.FoodCost + "\n";
+        Text.text += "Wood: " + myResource.WoodCost + "\n";
+        Text.text += "Stones: " + myResource.StoneCost + "\n";
+        Text.text += "Iron: " + myResource.IronCost;
     }
 }

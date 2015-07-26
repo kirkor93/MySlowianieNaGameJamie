@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Billboard : MonoBehaviour
 {
+    public bool RotateZ;
     public Transform cameraTransform;
     private Transform myTransform;
 
@@ -18,6 +19,10 @@ public class Billboard : MonoBehaviour
         v.x = v.z = 0.0f;
         myTransform.LookAt(cameraTransform.position - v);
         myTransform.Rotate(Vector3.up * 180.0f);
+        if(RotateZ)
+        {
+            myTransform.Rotate(Vector3.forward, -90.0f);
+        }
     }
 
 }
