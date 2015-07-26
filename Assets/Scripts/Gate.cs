@@ -25,6 +25,8 @@ public class Gate : MonoBehaviour, IDamagable
     protected Vector3 _leftSideInitRotation;
     protected Vector3 _rightSideInitRotation;
 
+    protected GameObject _hpBar;
+
     protected float _timer = 0.0f;
 
     protected AudioSource _myAudioSource;
@@ -43,6 +45,7 @@ public class Gate : MonoBehaviour, IDamagable
 
     void OnEnable()
     {
+        _hpBar = transform.GetChild(0).gameObject;
         _myAudioSource = GetComponent<AudioSource>();
         _hp = StartHitPoints;
         IsDestroyed = false;
@@ -110,10 +113,12 @@ public class Gate : MonoBehaviour, IDamagable
         _hp -= dmg;
         _myAudioSource.volume = 1.0f;
         _myAudioSource.PlayOneShot(Clips[1]);
+        _hpBar.transform.GetChild(0).localScale = new Vector3(HitPoints / MaxHitPoints * 0.5f, 0.5f, 0.0f);
         if(_hp <= 0.0f)
         {
             IsDestroyed = true;
             GetComponent<BoxCollider>().enabled = false;
+            _hpBar.transform.GetChild(0).localScale = new Vector3(0.0f, 0.5f, 0.0f);
         }
     }
 
