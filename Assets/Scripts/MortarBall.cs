@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MortarBall : Bullet
 {
     protected Vector3 _middlePosition;
     protected bool _middlePositionReached = false;
+
+    protected List<Enemy> _targetEnemies = new List<Enemy>();
 
     protected override void OnPositionsSet()
     {
@@ -38,7 +41,7 @@ public class MortarBall : Bullet
                 {
                     _timer = 0.0f;
                     _middlePositionReached = true;
-                    _targetEnemyScript.DecreaseHealth(_damage);
+                    //_targetEnemyScript.DecreaseHealth(_damage);
                     OnDamage();
                     Destroy(gameObject);
                 }
@@ -49,6 +52,34 @@ public class MortarBall : Bullet
     protected override void OnDamage()
     {
         //MEGA HIPER UBER BOOOM!
+        foreach(Enemy e in _targetEnemies)
+        {
+            e.DecreaseHealth(_damage);
+        }
         base.OnDamage();
+    }
+
+    public void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            Enemy enemy = col.gameObject.GetComponent<Enemy>();
+            if(!_targetEnemies.Contains(enemy))
+            {
+                _targetEnemies.Add(enemy);
+            }
+        }
+    }
+
+    public void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            Enemy enemy = col.gameObject.GetComponent<Enemy>();
+            if (_targetEnemies.Contains(enemy))
+            {
+                _targetEnemies.Remove(enemy);
+            }
+        }
     }
 }

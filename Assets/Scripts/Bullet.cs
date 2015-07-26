@@ -12,8 +12,10 @@ public class Bullet : MonoBehaviour
     protected Vector3 _initPosition;
     protected float _timer = 0.0f;
 
+    private ParticleSystem _particle;
+
     // Use this for initialization
-    void Start()
+    protected virtual void Start()
     {
         _initPosition = transform.position;
         OnPositionsSet();
@@ -21,7 +23,7 @@ public class Bullet : MonoBehaviour
 
     protected virtual void OnPositionsSet()
     {
-
+        _particle = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -46,7 +48,13 @@ public class Bullet : MonoBehaviour
 
     protected virtual void OnDamage()
     {
-
+        if (_particle == null)
+        {
+            return;
+        }
+        _particle.transform.parent = null;
+        _particle.enableEmission = true;
+        _particle.Emit(1);
     }
 
 	void SetTarget(GameObject target)

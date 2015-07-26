@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Tower : MonoBehaviour 
 {
+    public ParticleSystem ShootParticle;
+
     private float _timer = 0.0f;
 
     protected GameObject _enemy;
@@ -35,6 +37,15 @@ public class Tower : MonoBehaviour
 
     void OnEnable()
     {
+        if (ShootParticle == null)
+        {
+            ShootParticle = transform.parent.GetComponentInChildren<ParticleSystem>();
+            if (ShootParticle == null)
+            {
+                Debug.LogError("Tower couldn't find shoot particle anywhere");
+            }
+        }
+        ShootParticle.transform.position = ShootingPosition.position + Vector3.up * 0.3f;
         _myAudioSource = GetComponent<AudioSource>();
         _timer = 0.0f;
         _enemy = null;
@@ -45,6 +56,10 @@ public class Tower : MonoBehaviour
         if (_enemy == null)
         {
             return;
+        }
+        if (ShootParticle != null)
+        {
+            ShootParticle.Emit(1);
         }
         GameObject bullet = Instantiate(BulletPrefab, ShootingPosition.position, BulletPrefab.transform.rotation) as GameObject;
         bullet.SendMessage("SetTarget", _enemy);

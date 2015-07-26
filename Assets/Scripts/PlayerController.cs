@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour {
     private bool _resourceInRange = false;
     private bool _collectPeriod = true;
 
+    private GameObject _starzParent;
     private AudioSource _myAudioSource;
     private Animator _myAnimator;
     private Rigidbody _myRigidbody;
@@ -54,6 +55,8 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        _starzParent = transform.GetChild(0).gameObject;
+        _starzParent.SetActive(false);
         _targets = new List<Enemy>();
         _playerHP = BasePlayerHP;
         _myAudioSource = GetComponent<AudioSource>();
@@ -86,6 +89,7 @@ public class PlayerController : MonoBehaviour {
             {
                 _playerHP = BasePlayerHP;
                 _stunned = false;
+                _starzParent.SetActive(false);
             }
         }
         else
@@ -136,6 +140,7 @@ public class PlayerController : MonoBehaviour {
         {
             _stunned = true;
             _stunTimer = 0.0f;
+            _starzParent.SetActive(true);
         }
         Mathf.Clamp(_playerHP, 0.0f, float.MaxValue);
     }
