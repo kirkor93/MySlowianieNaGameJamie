@@ -27,6 +27,10 @@ public class Tower : MonoBehaviour
 
     void Update()
     {
+        if(_enemy != null && !_enemy.activeSelf)
+        {
+            _enemy = null;
+        }
         _timer += Time.deltaTime;
         if (_timer >= _attackCooldown)
         {
@@ -74,6 +78,18 @@ public class Tower : MonoBehaviour
             return;
         }
         else if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            _enemy = col.gameObject;
+        }
+    }
+
+    protected void OnTriggerStay(Collider col)
+    {
+        if(_enemy != null)
+        {
+            return;
+        }
+        else if(col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             _enemy = col.gameObject;
         }
