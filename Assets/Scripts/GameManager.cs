@@ -96,7 +96,7 @@ public class GameManager : Singleton<GameManager>
         if(VillageController.Instance.VillageHP <= 0 )
         {
             Debug.LogWarning("Game Over");
-            Debug.Break();
+//            Debug.Break();
         }
         if(_changeSoundFlag)
         {
