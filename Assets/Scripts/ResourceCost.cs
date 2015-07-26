@@ -5,23 +5,23 @@ public class ResourceCost {
 
     public int FoodCost
     {
-        private set;
-        public get;
+        get;
+        set;
     }
     public int StoneCost
     {
-        private set;
-        public get;
+        get;
+        set;
     }
     public int IronCost
     {
-        private set;
-        public get;
+        get;
+        set;
     }
     public int WoodCost
     {
-        private set;
-        public get;
+        get;
+        set;
     }
 
     public ResourceCost()
