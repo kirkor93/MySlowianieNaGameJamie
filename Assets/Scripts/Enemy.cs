@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
     void OnEnable()
     {
         _hp = 50.0f;
+        IsDead = false;
         if (_myAgent == null)
         {
             _myAgent = GetComponent<NavMeshAgent>();
@@ -138,6 +139,7 @@ public class Enemy : MonoBehaviour
 
     public void DecreaseHealth(float dmg)
     {
+        if (_hp <= 0.0f) return;
         StopNavMeshAgent();
         _myAnimator.SetBool("IsGettingHit", true);
         _hp -= dmg;
@@ -207,7 +209,9 @@ public class Enemy : MonoBehaviour
         if(col.gameObject.layer == LayerMask.NameToLayer("CityHall"))
         {
             col.gameObject.GetComponent<CityHall>().DecreaseHealth();
-            Destroy(gameObject);
+            --GameManager.Instance.EnemiesCount;
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

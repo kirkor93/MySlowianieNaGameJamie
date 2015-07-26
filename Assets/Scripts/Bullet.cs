@@ -21,6 +21,13 @@ public class Bullet : MonoBehaviour
         OnPositionsSet();
     }
 
+    void OnEnable()
+    {
+        _timer = 0.0f;
+        _initPosition = transform.position;
+        OnPositionsSet();
+    }
+
     protected virtual void OnPositionsSet()
     {
         _particle = GetComponentInChildren<ParticleSystem>();
@@ -31,6 +38,7 @@ public class Bullet : MonoBehaviour
     {
         if (_targetEnemyScript.IsDead)
         {
+            Debug.Log("But enemy is dead");
             Destroy(gameObject);
         }
         else
@@ -39,6 +47,7 @@ public class Bullet : MonoBehaviour
             _timer += Speed * Time.deltaTime;
             if (_timer >= 1.0f)
             {
+                Debug.Log("Attack succesfull");
                 _targetEnemyScript.DecreaseHealth(_damage);
                 OnDamage();
                 Destroy(gameObject);
