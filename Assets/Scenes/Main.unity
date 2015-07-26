@@ -27441,7 +27441,7 @@ Prefab:
       objectReference: {fileID: 642639997}
     - target: {fileID: 11474202, guid: 062c5e536920c404eb34c1e505fc489f, type: 2}
       propertyPath: CollectPeriodDuration
-      value: 12
+      value: 59.8899994
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 062c5e536920c404eb34c1e505fc489f, type: 2}
