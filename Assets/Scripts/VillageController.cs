@@ -98,6 +98,53 @@ public class VillageController : Singleton<VillageController> {
         FoodNeededValue = 15;
     }
 
+    void OnEnable()
+    {
+        Invoke("CalculateCosts", 0.3f);
+    }
+
+    void CalculateCosts()
+    {
+        int activePlayers = 0;
+        if(GameManager.Instance.PlayerFour.activeSelf)
+        {
+            ++activePlayers;
+        }
+        if(GameManager.Instance.PlayerOne.activeSelf)
+        {
+            ++activePlayers;
+        }
+        if (GameManager.Instance.PlayerThree.activeSelf)
+        {
+            ++activePlayers;
+        }
+        if (GameManager.Instance.PlayerTwo.activeSelf)
+        {
+            ++activePlayers;
+        }
+
+        Cost(TowerLvl1, activePlayers);
+        Cost(TowerLvl2, activePlayers);
+        Cost(TowerLvl3, activePlayers);
+        Cost(CannonLvl1, activePlayers);
+        Cost(CannonLvl2, activePlayers);
+        Cost(CannonLvl3, activePlayers);
+        Cost(MortarLvl1, activePlayers);
+        Cost(MortarLvl2, activePlayers);
+        Cost(MortarLvl3, activePlayers);
+        Cost(VillageLvl1, activePlayers);
+        Cost(VillageLvl2, activePlayers);
+        Cost(VillageLvl3, activePlayers);
+    }
+
+    void Cost(ResourceCost resource, int multiplier)
+    {
+        resource.FoodCost *= multiplier;
+        resource.IronCost *= multiplier;
+        resource.StoneCost *= multiplier;
+        resource.WoodCost *= multiplier;
+    }
+
     private void OnPeriodChange()
     {
         if(GameManager.Instance.Period == GamePeriod.Collect)

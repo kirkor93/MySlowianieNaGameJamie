@@ -31,8 +31,8 @@ public class Motivator : MonoBehaviour {
         _myRectTransform = GetComponent<RectTransform>();
         _mySpeach = GetComponentInChildren<Text>();
         _basePosition = _myRectTransform.localPosition;
-        _destinationPosition = _basePosition + new Vector3(-400f, 0f, 0f);
-        _basePosition += new Vector3(100.0f, 0.0f, 0.0f);
+        _destinationPosition = _basePosition + new Vector3(-450f, 0f, 0f);
+        _basePosition += new Vector3(250.0f, 0.0f, 0.0f);
         GameManager.Instance.OnGamePeriodChange += OnGamePeriodChange;
         _collectSpeach = string.Format("You have to collect: {0} food, {1} wood, {2} stone, {3} iron", 
             VillageController.Instance.FoodNeededValue, VillageController.Instance.WoodNeededValue, VillageController.Instance.StoneNeededValue, VillageController.Instance.IronNeededValue);

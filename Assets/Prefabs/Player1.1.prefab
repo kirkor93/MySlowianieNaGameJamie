@@ -37,7 +37,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &115344
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,6 +46,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 429898}
+  - 114: {fileID: 11472136}
   m_Layer: 0
   m_Name: HpBar
   m_TagString: Untagged
@@ -1064,6 +1065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c706608115aff244595e77f9712b49e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotateZ: 0
   cameraTransform: {fileID: 0}
 --- !u!114 &11431952
 MonoBehaviour:
@@ -1089,6 +1091,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationSpeed: 200
+--- !u!114 &11472136
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c706608115aff244595e77f9712b49e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotateZ: 0
+  cameraTransform: {fileID: 0}
 --- !u!114 &11489758
 MonoBehaviour:
   m_ObjectHideFlags: 1
