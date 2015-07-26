@@ -60,6 +60,12 @@ public class SpawnPoint : MonoBehaviour
                 enemy.transform.position = transform.position;
                 enemy.transform.rotation = transform.rotation;
             }
+            float rand = Random.Range(0.0f, 1.0f);
+            if (rand > 0.5f
+                && SpawnCooldown > 2)
+            {
+                SpawnCooldown -= 0.5f;
+            }
         }
     }
 }

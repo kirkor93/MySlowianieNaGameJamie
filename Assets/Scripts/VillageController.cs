@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class VillageController : Singleton<VillageController> {
@@ -18,6 +19,8 @@ public class VillageController : Singleton<VillageController> {
     public ResourceCost VillageLvl1 = new ResourceCost(5, 2, 2, 6);
     public ResourceCost VillageLvl2 = new ResourceCost(4, 6, 2, 3);
     public ResourceCost VillageLvl3 = new ResourceCost(5, 3, 6, 2);
+
+    public event EventHandler<EventArgs> OnGameOver; 
     #endregion
 
     #region VillageHP and ResourcesValues Properties
@@ -112,7 +115,11 @@ public class VillageController : Singleton<VillageController> {
         //Debug.Log(string.Format("Food {0} / Iron {1} / Stone {2} / Wood {3} /", FoodValue, IronValue, StoneValue, WoodValue));
         if(VillageHP <= 0.0f)
         {
-            Debug.LogError("CITY HALL IS DESTROYED!!");
+//            Debug.LogError("CITY HALL IS DESTROYED!!");
+            if (OnGameOver != null)
+            {
+                OnGameOver(this, EventArgs.Empty);
+            }
         }
 	}
 
