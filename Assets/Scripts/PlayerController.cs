@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour {
     private bool _resourceInRange = false;
     private bool _collectPeriod = true;
 
+    private GameObject _hpBar;
     private GameObject _starzParent;
     private AudioSource _myAudioSource;
     private Animator _myAnimator;
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        _hpBar = transform.GetChild(1).gameObject;
         _starzParent = transform.GetChild(0).gameObject;
         _starzParent.SetActive(false);
         _targets = new List<Enemy>();
@@ -81,6 +83,7 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         _myRigidbody.velocity = Vector3.zero;
+
 
         if(_stunned)
         {
@@ -133,16 +136,21 @@ public class PlayerController : MonoBehaviour {
 
     public void DecreaseHealth(float value)
     {
-        _playerHP -= value;
-        _myAudioSource.PlayOneShot(Clips[1]);
-        _myAnimator.SetBool("IsGettingHit", true);
-        if(_playerHP <= 0.0f)
+        if(!_stunned)
         {
-            _stunned = true;
-            _stunTimer = 0.0f;
-            _starzParent.SetActive(true);
+            _playerHP -= value;
+            _myAudioSource.PlayOneShot(Clips[1]);
+            _myAnimator.SetBool("IsGettingHit", true);
+            _hpBar.transform.GetChild(0).localScale = new Vector3(_playerHP / BasePlayerHP * 0.5f, 0.5f, 0.0f);
+            if(_playerHP <= 0.0f)
+            {
+                _stunned = true;
+                _stunTimer = 0.0f;
+                _starzParent.SetActive(true);
+                _hpBar.transform.GetChild(0).localScale = new Vector3( 0.0f, 0.5f, 0.0f);
+            }
+            Mathf.Clamp(_playerHP, 0.0f, float.MaxValue);
         }
-        Mathf.Clamp(_playerHP, 0.0f, float.MaxValue);
     }
 
     public void SetResourceInRange(Resource res)
