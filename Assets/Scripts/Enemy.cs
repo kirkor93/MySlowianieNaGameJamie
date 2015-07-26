@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public float AttackDamage = 10.0f;
     public float GateAttackDamage = 50.0f;
+    public float EnemyMaxHp = 50.0f;
     public AudioClip[] Clips;
 
     protected NavMeshAgent _myAgent;
@@ -28,6 +29,8 @@ public class Enemy : MonoBehaviour
     protected Rigidbody _myRigidbody;
     protected Animator _myAnimator;
 
+    protected GameObject _hpBar;
+
     protected Vector3 _destinationBeforeGetHit;
 
     public bool IsDead { get; protected set; }
@@ -35,6 +38,7 @@ public class Enemy : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+        _hpBar = transform.GetChild(0).gameObject;
         _myAudioSource = GetComponent<AudioSource>();
         _myRigidbody = GetComponent<Rigidbody>();
         _myAnimator = GetComponent<Animator>();
@@ -48,7 +52,7 @@ public class Enemy : MonoBehaviour
 
     void OnEnable()
     {
-        _hp = 50.0f;
+        _hp = EnemyMaxHp;
         IsDead = false;
         if (_myAgent == null)
         {
@@ -143,8 +147,10 @@ public class Enemy : MonoBehaviour
         StopNavMeshAgent();
         _myAnimator.SetBool("IsGettingHit", true);
         _hp -= dmg;
+        _hpBar.transform.GetChild(0).localScale = new Vector3(_hp / EnemyMaxHp * 0.5f, 0.5f, 0.0f);
         if(_hp <= 0.0f)
         {
+            _hpBar.transform.GetChild(0).localScale = new Vector3(0.0f, 0.5f, 0.0f);
             GameManager.Instance.EnemiesCount -= 1;
             _playerTarget = null;
             _gateTarget = null;
