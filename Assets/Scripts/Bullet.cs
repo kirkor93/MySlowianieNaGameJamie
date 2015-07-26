@@ -43,6 +43,8 @@ public class Bullet : MonoBehaviour
         }
         else
         {
+            transform.LookAt(_target.transform);
+            transform.Rotate(Vector3.up, 90.0f);
             transform.position = Vector3.Lerp(_initPosition, _target.transform.position, _timer);
             _timer += Speed * Time.deltaTime;
             if (_timer >= 1.0f)
