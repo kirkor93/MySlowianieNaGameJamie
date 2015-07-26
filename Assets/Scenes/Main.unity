@@ -10184,7 +10184,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 423046, guid: 9315daf1ee30d744794238228cf6a504, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 103996, guid: 9315daf1ee30d744794238228cf6a504, type: 2}
       propertyPath: m_Name
@@ -25008,7 +25008,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 423046, guid: 9315daf1ee30d744794238228cf6a504, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 103996, guid: 9315daf1ee30d744794238228cf6a504, type: 2}
       propertyPath: m_Name
@@ -27441,7 +27441,7 @@ Prefab:
       objectReference: {fileID: 642639997}
     - target: {fileID: 11474202, guid: 062c5e536920c404eb34c1e505fc489f, type: 2}
       propertyPath: CollectPeriodDuration
-      value: 59.8899994
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 062c5e536920c404eb34c1e505fc489f, type: 2}
@@ -32121,8 +32121,8 @@ Transform:
   m_Children:
   - {fileID: 1727601113}
   - {fileID: 616264377}
-  - {fileID: 1225188622}
   - {fileID: 642639996}
+  - {fileID: 1225188622}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!1 &1521714276
@@ -38723,10 +38723,6 @@ Prefab:
     - target: {fileID: 103996, guid: 9315daf1ee30d744794238228cf6a504, type: 2}
       propertyPath: m_Name
       value: Player1
-      objectReference: {fileID: 0}
-    - target: {fileID: 103996, guid: 9315daf1ee30d744794238228cf6a504, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9315daf1ee30d744794238228cf6a504, type: 2}
