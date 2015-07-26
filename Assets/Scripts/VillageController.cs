@@ -76,7 +76,150 @@ public class VillageController : Singleton<VillageController> {
         }
 	}
 
-    public bool UpgradeBuilding(BuildingType type, UpgradeLvl lvl)
+    public void BuyBuilding(BuildingType type, UpgradeLvl lvl)
+    {
+        switch (type)
+        {
+            case BuildingType.Tower:
+                #region UpgradeValues
+                switch (lvl)
+                {
+                    case UpgradeLvl.L1:
+                        if (FoodValue >= 2 && StoneValue >= 1 && IronValue >= 0 && WoodValue >= 3)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 1;
+                            IronValue -= 0;
+                            WoodValue -= 3;
+                        }
+                        break;
+                    case UpgradeLvl.L2:
+                        if (FoodValue >= 2 && StoneValue >= 4 && IronValue >= 1 && WoodValue >= 2)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 4;
+                            IronValue -= 1;
+                            WoodValue -= 2;
+                        }
+                        break;
+                    case UpgradeLvl.L3:
+                        if (FoodValue >= 2 && StoneValue >= 2 && IronValue >= 3 && WoodValue >= 2)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 2;
+                            IronValue -= 3;
+                            WoodValue -= 2;
+                        }
+                        break;
+                }
+                break;
+                #endregion
+            case BuildingType.Mortar:
+                #region UpgradeValues
+                switch (lvl)
+                {
+                    case UpgradeLvl.L1:
+                        if (FoodValue >= 2 && StoneValue >= 0 && IronValue >= 4 && WoodValue >= 3)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 0;
+                            IronValue -= 4;
+                            WoodValue -= 3;
+                        }
+                        break;
+                    case UpgradeLvl.L2:
+                        if (FoodValue >= 2 && StoneValue >= 4 && IronValue >= 2 && WoodValue >= 2)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 4;
+                            IronValue -= 2;
+                            WoodValue -= 2;
+                        }
+                        break;
+                    case UpgradeLvl.L3:
+                        if (FoodValue >= 2 && StoneValue >= 2 && IronValue >= 5 && WoodValue >= 3)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 2;
+                            IronValue -= 5;
+                            WoodValue -= 3;
+                        }
+                        break;
+                }
+                break;
+                #endregion
+            case BuildingType.Cannon:
+                #region UpgradeValues
+                switch (lvl)
+                {
+                    case UpgradeLvl.L1:
+                        if (FoodValue >= 2 && StoneValue >= 1 && IronValue >= 3 && WoodValue >= 3)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 1;
+                            IronValue -= 3;
+                            WoodValue -= 3;
+                        }
+                        break;
+                    case UpgradeLvl.L2:
+                        if (FoodValue >= 2 && StoneValue >= 5 && IronValue >= 3 && WoodValue >= 1)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 5;
+                            IronValue -= 3;
+                            WoodValue -= 1;
+                        }
+                        break;
+                    case UpgradeLvl.L3:
+                        if (FoodValue >= 2 && StoneValue >= 3 && IronValue >= 4 && WoodValue >= 2)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 3;
+                            IronValue -= 4;
+                            WoodValue -= 2;
+                        }
+                        break;
+                }
+                break;
+                #endregion
+            case BuildingType.Village:
+                #region UpgradeValues
+                switch (lvl)
+                {
+                    case UpgradeLvl.L1:
+                        if (FoodValue >= 5 && StoneValue >= 2 && IronValue >= 2 && WoodValue >= 6)
+                        {
+                            FoodValue -= 5;
+                            StoneValue -= 2;
+                            IronValue -= 2;
+                            WoodValue -= 6;
+                        }
+                        break;
+                    case UpgradeLvl.L2:
+                        if (FoodValue >= 4 && StoneValue >= 6 && IronValue >= 2 && WoodValue >= 3)
+                        {
+                            FoodValue -= 4;
+                            StoneValue -= 6;
+                            IronValue -= 2;
+                            WoodValue -= 3;
+                        }
+                        break;
+                    case UpgradeLvl.L3:
+                        if (FoodValue >= 5 && StoneValue >= 3 && IronValue >= 6 && WoodValue >= 2)
+                        {
+                            FoodValue -= 5;
+                            StoneValue -= 3;
+                            IronValue -= 6;
+                            WoodValue -= 2;
+                        }
+                        break;
+                }
+                break;
+                #endregion
+        }
+    }
+
+    public bool CanUpgradeBuilding(BuildingType type, UpgradeLvl lvl)
     {
         switch(type)
         {
@@ -87,10 +230,6 @@ public class VillageController : Singleton<VillageController> {
                     case UpgradeLvl.L1:
                         if(FoodValue >= 2 && StoneValue >= 1 && IronValue >= 0 && WoodValue >= 3)
                         {
-                            FoodValue -= 2;
-                            StoneValue -= 1;
-                            IronValue -= 0;
-                            WoodValue -= 3;
                             return true;
                         }
                         else
@@ -100,10 +239,6 @@ public class VillageController : Singleton<VillageController> {
                     case UpgradeLvl.L2:
                         if (FoodValue >= 2 && StoneValue >= 4 && IronValue >= 1 && WoodValue >= 2)
                         {
-                            FoodValue -= 2;
-                            StoneValue -= 4;
-                            IronValue -= 1;
-                            WoodValue -= 2;
                             return true;
                         }
                         else
@@ -113,10 +248,6 @@ public class VillageController : Singleton<VillageController> {
                     case UpgradeLvl.L3:
                         if (FoodValue >= 2 && StoneValue >= 2 && IronValue >= 3 && WoodValue >= 2)
                         {
-                            FoodValue -= 2;
-                            StoneValue -= 2;
-                            IronValue -= 3;
-                            WoodValue -= 2;
                             return true;
                         }
                         else
@@ -134,10 +265,6 @@ public class VillageController : Singleton<VillageController> {
                     case UpgradeLvl.L1:
                         if (FoodValue >= 2 && StoneValue >= 0 && IronValue >= 4 && WoodValue >= 3)
                         {
-                            FoodValue -= 2;
-                            StoneValue -= 0;
-                            IronValue -= 4;
-                            WoodValue -= 3;
                             return true;
                         }
                         else
@@ -147,10 +274,6 @@ public class VillageController : Singleton<VillageController> {
                     case UpgradeLvl.L2:
                         if (FoodValue >= 2 && StoneValue >= 4 && IronValue >= 2 && WoodValue >= 2)
                         {
-                            FoodValue -= 2;
-                            StoneValue -= 4;
-                            IronValue -= 2;
-                            WoodValue -= 2;
                             return true;
                         }
                         else
@@ -160,10 +283,6 @@ public class VillageController : Singleton<VillageController> {
                     case UpgradeLvl.L3:
                         if (FoodValue >= 2 && StoneValue >= 2 && IronValue >= 5 && WoodValue >= 3)
                         {
-                            FoodValue -= 2;
-                            StoneValue -= 2;
-                            IronValue -= 5;
-                            WoodValue -= 3;
                             return true;
                         }
                         else
@@ -181,10 +300,6 @@ public class VillageController : Singleton<VillageController> {
                     case UpgradeLvl.L1:
                         if (FoodValue >= 2 && StoneValue >= 1 && IronValue >= 3 && WoodValue >= 3)
                         {
-                            FoodValue -= 2;
-                            StoneValue -= 1;
-                            IronValue -= 3;
-                            WoodValue -= 3;
                             return true;
                         }
                         else
@@ -194,10 +309,6 @@ public class VillageController : Singleton<VillageController> {
                     case UpgradeLvl.L2:
                         if (FoodValue >= 2 && StoneValue >= 5 && IronValue >= 3 && WoodValue >= 1)
                         {
-                            FoodValue -= 2;
-                            StoneValue -= 5;
-                            IronValue -= 3;
-                            WoodValue -= 1;
                             return true;
                         }
                         else
@@ -207,10 +318,6 @@ public class VillageController : Singleton<VillageController> {
                     case UpgradeLvl.L3:
                         if (FoodValue >= 2 && StoneValue >= 3 && IronValue >= 4 && WoodValue >= 2)
                         {
-                            FoodValue -= 2;
-                            StoneValue -= 3;
-                            IronValue -= 4;
-                            WoodValue -= 2;
                             return true;
                         }
                         else
@@ -228,10 +335,6 @@ public class VillageController : Singleton<VillageController> {
                     case UpgradeLvl.L1:
                         if (FoodValue >= 5 && StoneValue >= 2 && IronValue >= 2 && WoodValue >= 6)
                         {
-                            FoodValue -= 5;
-                            StoneValue -= 2;
-                            IronValue -= 2;
-                            WoodValue -= 6;
                             return true;
                         }
                         else
@@ -241,10 +344,6 @@ public class VillageController : Singleton<VillageController> {
                     case UpgradeLvl.L2:
                         if (FoodValue >= 4 && StoneValue >= 6 && IronValue >= 2 && WoodValue >= 3)
                         {
-                            FoodValue -= 4;
-                            StoneValue -= 6;
-                            IronValue -= 2;
-                            WoodValue -= 3;
                             return true;
                         }
                         else
@@ -254,10 +353,6 @@ public class VillageController : Singleton<VillageController> {
                     case UpgradeLvl.L3:
                         if (FoodValue >= 5 && StoneValue >= 3 && IronValue >= 6 && WoodValue >= 2)
                         {
-                            FoodValue -= 5;
-                            StoneValue -= 3;
-                            IronValue -= 6;
-                            WoodValue -= 2;
                             return true;
                         }
                         else
