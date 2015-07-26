@@ -49,6 +49,7 @@ public class Tower : MonoBehaviour
         GameObject bullet = Instantiate(BulletPrefab, ShootingPosition.position, BulletPrefab.transform.rotation) as GameObject;
         bullet.SendMessage("SetTarget", _enemy);
         bullet.SendMessage("SetDamage", _damage);
+        _myAudioSource.Play();
     }
 
     protected void OnTriggerEnter(Collider col)
