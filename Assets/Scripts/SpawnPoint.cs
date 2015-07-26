@@ -5,28 +5,32 @@ using System.Collections.Generic;
 public class SpawnPoint : MonoBehaviour 
 {
     public List<GameObject> Enemies;
+    public float SpawnCooldown = 10.0f;
+    public int StartRound = 1;
 
     protected bool _spawnEnemies;
     protected int _enemiesCount = 0;
     protected int _lastEnemyIndex = 0;
     protected float _timer;
-    protected float _spawnCooldown = 3.0f;
+
+    private int _currentRound = 0;
 
     void OnEnable()
     {
         GameManager.Instance.OnGamePeriodChange += OnGamePeriodChange;
         _enemiesCount = Enemies.Count;
-        _spawnCooldown = Random.Range(0.1f, 0.5f);
+//        SpawnCooldown = Random.Range(0.1f, 0.5f);
     }
 
     void Update()
     {
-        if(_spawnEnemies)
+        if(_spawnEnemies
+            && _currentRound >= StartRound)
         {
             _timer += Time.deltaTime;
-            if(_timer >= _spawnCooldown)
+            if(_timer >= SpawnCooldown)
             {
-                _spawnCooldown = Random.Range(2.0f, 5.0f);
+//                SpawnCooldown = Random.Range(2.0f, 5.0f);
                 Enemies[_lastEnemyIndex].SetActive(true);
                 ++_lastEnemyIndex;
                 --_enemiesCount;
@@ -49,6 +53,7 @@ public class SpawnPoint : MonoBehaviour
 
     void OnGamePeriodChange()
     {
+        _currentRound++;
         if(GameManager.Instance.Period == GamePeriod.Collect)
         {
             foreach(GameObject enemy in Enemies)
