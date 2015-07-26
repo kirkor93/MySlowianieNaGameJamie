@@ -59,12 +59,32 @@ public class VillageController : Singleton<VillageController> {
         set;
     }
 
-	// Use this for initialization
-    public override void Awake()
+    //// Use this for initialization
+    //public override void Awake()
+    //{
+    //    base.Awake();
+
+    //}
+
+    private void Start()
     {
-        base.Awake();
         VillageHP = StartHp;
-	}
+        StoneNeededValue = 10;
+        IronNeededValue = 10;
+        WoodNeededValue = 15;
+        FoodNeededValue = 15;
+    }
+
+    private void OnPeriodChange()
+    {
+        if(GameManager.Instance.Period == GamePeriod.Collect)
+        {
+            StoneNeededValue += 5;
+            IronNeededValue += 5;
+            WoodNeededValue += 5;
+            FoodNeededValue += 5;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
