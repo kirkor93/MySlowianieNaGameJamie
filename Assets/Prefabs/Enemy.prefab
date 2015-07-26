@@ -530,8 +530,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d95b5ce95e35ea445836a3dae75b7a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackDamage: 10
-  GateAttackDamage: 50
+  AttackDamage: 3
+  GateAttackDamage: 15
   Clips:
   - {fileID: 8300000, guid: 6f1e9d294a3576e418a5fdc1b5c6f257, type: 3}
   - {fileID: 8300000, guid: d1c9469180b9cd7448266e42df2c1336, type: 3}
@@ -871,6 +871,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: AttackDamage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: GateAttackDamage
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
