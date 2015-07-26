@@ -138,11 +138,11 @@ public class CityHall : MonoBehaviour, IDamagable
     public void DecreaseHealth()
     {
         _myAudioSource.PlayOneShot(Clips[0]);
-        _hpBar.transform.GetChild(0).localScale = new Vector3(HitPoints / MaxHitPoints * 0.5f, 0.5f, 0.0f);
+        _hpBar.transform.GetChild(0).localScale = new Vector3(HitPoints / MaxHitPoints * 1f, 0.5f, 0.0f);
         VillageController.Instance.VillageHP -= 1.0f;
         if(VillageController.Instance.VillageHP == 0 )
         {
-            _hpBar.transform.GetChild(0).localScale = new Vector3(0f, 0.5f, 0.0f);
+            _hpBar.transform.GetChild(0).localScale = new Vector3(0f, 1f, 0.0f);
         }
     }
 
