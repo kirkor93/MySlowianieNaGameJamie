@@ -1,12 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public struct ResourceCost {
+public class ResourceCost {
 
-    public int FoodCost;
-    public int StoneCost;
-    public int IronCost;
-    public int WoodCost;
+    public int FoodCost
+    {
+        private set;
+        public get;
+    }
+    public int StoneCost
+    {
+        private set;
+        public get;
+    }
+    public int IronCost
+    {
+        private set;
+        public get;
+    }
+    public int WoodCost
+    {
+        private set;
+        public get;
+    }
 
     public ResourceCost()
     {
