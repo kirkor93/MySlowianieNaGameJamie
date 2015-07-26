@@ -10,6 +10,7 @@ public class HUDScript : MonoBehaviour
     public Text IronText;
     public Text StoneText;
     public Text TimeLeftToAttackText;
+    public Image GameOverImage;
 
 	// Use this for initialization
 	void Start () 
@@ -20,7 +21,7 @@ public class HUDScript : MonoBehaviour
 
     private void OnGameOver(object sender, EventArgs eventArgs)
     {
-        
+        GameOverImage.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
