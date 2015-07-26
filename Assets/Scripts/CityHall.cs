@@ -21,7 +21,7 @@ public class CityHall : MonoBehaviour, IDamagable
     private AudioSource _myAudioSource;
     protected bool _isPlayerClose = false;
     protected List<PlayerController> _playerControllerScripts = new List<PlayerController>();
-
+    protected GameObject _hpBar;
     protected int _upgradeLevel = 1;
 
     public float HitPoints
@@ -38,6 +38,7 @@ public class CityHall : MonoBehaviour, IDamagable
 
     void Start ()
 	{
+        _hpBar = transform.GetChild(0).gameObject;
 	    _myAudioSource = GetComponent<AudioSource>();
 	}
 
@@ -137,7 +138,12 @@ public class CityHall : MonoBehaviour, IDamagable
     public void DecreaseHealth()
     {
         _myAudioSource.PlayOneShot(Clips[0]);
+        _hpBar.transform.GetChild(0).localScale = new Vector3(HitPoints / MaxHitPoints * 1f, 0.5f, 0.0f);
         VillageController.Instance.VillageHP -= 1.0f;
+        if(VillageController.Instance.VillageHP == 0 )
+        {
+            _hpBar.transform.GetChild(0).localScale = new Vector3(0f, 1f, 0.0f);
+        }
     }
 
     void OnTriggerEnter(Collider col)
