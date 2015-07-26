@@ -1,47 +1,15 @@
 fileFormatVersion: 2
-guid: 218a17509a927c8419d836c5b84c1e5c
-timeCreated: 1437842018
+guid: d42ee6492ba59994bb694ff6e249d6e8
+timeCreated: 1437860950
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: Box001
-    100002: //RootNode
-    100004: Cylinder005
-    100006: doors
-    100008: doors001
-    100010: doors002
-    100012: doors003
-    100014: StraightStair001
-    400000: Box001
-    400002: //RootNode
-    400004: Cylinder005
-    400006: doors
-    400008: doors001
-    400010: doors002
-    400012: doors003
-    400014: StraightStair001
-    2300000: Box001
-    2300002: Cylinder005
-    2300004: doors
-    2300006: doors001
-    2300008: doors002
-    2300010: doors003
-    2300012: StraightStair001
-    3300000: Box001
-    3300002: Cylinder005
-    3300004: doors
-    3300006: doors001
-    3300008: doors002
-    3300010: doors003
-    3300012: StraightStair001
-    4300000: Box001
-    4300002: Cylinder005
-    4300004: doors
-    4300006: doors001
-    4300008: doors002
-    4300010: doors003
-    4300012: StraightStair001
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Box006
   materials:
     importMaterials: 1
     materialName: 0
@@ -65,7 +33,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .75
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class VillageController : Singleton<VillageController> {
 
-    public readonly float StartHp = 10.0f;
+    public float StartHp = 10.0f;
 
     public float VillageHP
     {
@@ -69,10 +69,222 @@ public class VillageController : Singleton<VillageController> {
 	// Update is called once per frame
 	void Update () {
         //Delete debug when informations will be on GUI
-        Debug.Log(string.Format("Food {0} / Iron {1} / Stone {2} / Wood {3} /", FoodValue, IronValue, StoneValue, WoodValue));
+        //Debug.Log(string.Format("Food {0} / Iron {1} / Stone {2} / Wood {3} /", FoodValue, IronValue, StoneValue, WoodValue));
         if(VillageHP <= 0.0f)
         {
             Debug.LogError("CITY HALL IS DESTROYED!!");
         }
 	}
+
+    public bool UpgradeBuilding(BuildingType type, UpgradeLvl lvl)
+    {
+        switch(type)
+        {
+            case BuildingType.Tower:
+                #region UpgradeValues
+                switch (lvl)
+                {
+                    case UpgradeLvl.L1:
+                        if(FoodValue >= 2 && StoneValue >= 1 && IronValue >= 0 && WoodValue >= 3)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 1;
+                            IronValue -= 0;
+                            WoodValue -= 3;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case UpgradeLvl.L2:
+                        if (FoodValue >= 2 && StoneValue >= 4 && IronValue >= 1 && WoodValue >= 2)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 4;
+                            IronValue -= 1;
+                            WoodValue -= 2;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case UpgradeLvl.L3:
+                        if (FoodValue >= 2 && StoneValue >= 2 && IronValue >= 3 && WoodValue >= 2)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 2;
+                            IronValue -= 3;
+                            WoodValue -= 2;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    default:
+                        return false;
+                }
+                #endregion
+            case BuildingType.Mortar:
+                #region UpgradeValues
+                switch (lvl)
+                {
+                    case UpgradeLvl.L1:
+                        if (FoodValue >= 2 && StoneValue >= 0 && IronValue >= 4 && WoodValue >= 3)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 0;
+                            IronValue -= 4;
+                            WoodValue -= 3;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case UpgradeLvl.L2:
+                        if (FoodValue >= 2 && StoneValue >= 4 && IronValue >= 2 && WoodValue >= 2)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 4;
+                            IronValue -= 2;
+                            WoodValue -= 2;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case UpgradeLvl.L3:
+                        if (FoodValue >= 2 && StoneValue >= 2 && IronValue >= 5 && WoodValue >= 3)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 2;
+                            IronValue -= 5;
+                            WoodValue -= 3;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    default:
+                        return false;
+                }
+                #endregion
+            case BuildingType.Cannon:
+                #region UpgradeValues
+                switch (lvl)
+                {
+                    case UpgradeLvl.L1:
+                        if (FoodValue >= 2 && StoneValue >= 1 && IronValue >= 3 && WoodValue >= 3)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 1;
+                            IronValue -= 3;
+                            WoodValue -= 3;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case UpgradeLvl.L2:
+                        if (FoodValue >= 2 && StoneValue >= 5 && IronValue >= 3 && WoodValue >= 1)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 5;
+                            IronValue -= 3;
+                            WoodValue -= 1;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case UpgradeLvl.L3:
+                        if (FoodValue >= 2 && StoneValue >= 3 && IronValue >= 4 && WoodValue >= 2)
+                        {
+                            FoodValue -= 2;
+                            StoneValue -= 3;
+                            IronValue -= 4;
+                            WoodValue -= 2;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    default:
+                        return false;
+                }
+                #endregion
+            case BuildingType.Village:
+                #region UpgradeValues
+                switch (lvl)
+                {
+                    case UpgradeLvl.L1:
+                        if (FoodValue >= 5 && StoneValue >= 2 && IronValue >= 2 && WoodValue >= 6)
+                        {
+                            FoodValue -= 5;
+                            StoneValue -= 2;
+                            IronValue -= 2;
+                            WoodValue -= 6;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case UpgradeLvl.L2:
+                        if (FoodValue >= 4 && StoneValue >= 6 && IronValue >= 2 && WoodValue >= 3)
+                        {
+                            FoodValue -= 4;
+                            StoneValue -= 6;
+                            IronValue -= 2;
+                            WoodValue -= 3;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case UpgradeLvl.L3:
+                        if (FoodValue >= 5 && StoneValue >= 3 && IronValue >= 6 && WoodValue >= 2)
+                        {
+                            FoodValue -= 5;
+                            StoneValue -= 3;
+                            IronValue -= 6;
+                            WoodValue -= 2;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    default:
+                        return false;
+                }
+                #endregion
+            default:
+                return false;
+        }
+    }
+}
+
+public enum BuildingType
+{
+    Tower,
+    Cannon,
+    Mortar,
+    Village
+}
+
+public enum UpgradeLvl
+{
+    L1,
+    L2,
+    L3
 }

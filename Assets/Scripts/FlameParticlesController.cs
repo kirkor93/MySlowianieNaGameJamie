@@ -14,7 +14,7 @@ public class FlameParticlesController : MonoBehaviour
     #endregion
     #region Methods
 
-    protected void Awake()
+    protected void OnEnable()
     {
         _damagableObject = GetComponent(typeof (IDamagable)) as IDamagable;
         if (Particles == null
@@ -37,6 +37,14 @@ public class FlameParticlesController : MonoBehaviour
 
     protected void Update()
     {
+        if (_damagableObject.HitPoints <= 0.0f)
+        {
+            foreach (ParticleSystem particle in Particles)
+            {
+                particle.enableEmission = false;
+            }
+            return;
+        }
         if (_damagableObject.HitPoints < _thresholdMin
             && _particleIndex < Particles.Length)
         {

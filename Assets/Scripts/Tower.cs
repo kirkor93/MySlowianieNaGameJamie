@@ -15,6 +15,8 @@ public class Tower : MonoBehaviour
     public GameObject BulletPrefab;
     public Transform ShootingPosition;
 
+    protected AudioSource _myAudioSource;
+
     public float Damage
     {
         get { return _damage; }
@@ -33,6 +35,7 @@ public class Tower : MonoBehaviour
 
     void OnEnable()
     {
+        _myAudioSource = GetComponent<AudioSource>();
         _timer = 0.0f;
         _enemy = null;
     }
@@ -46,6 +49,7 @@ public class Tower : MonoBehaviour
         GameObject bullet = Instantiate(BulletPrefab, ShootingPosition.position, BulletPrefab.transform.rotation) as GameObject;
         bullet.SendMessage("SetTarget", _enemy);
         bullet.SendMessage("SetDamage", _damage);
+        _myAudioSource.Play();
     }
 
     protected void OnTriggerEnter(Collider col)
