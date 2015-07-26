@@ -136,13 +136,19 @@ public class GameManager : Singleton<GameManager>
             {
                 Period = GamePeriod.Defense;
                 EnemiesCount = 0;
+                OnGamePeriodChange();
                 foreach(SpawnPoint sp in SpawnPoints)
                 {
-                    sp.SpawnEnemies();
-                    EnemiesCount += sp.Enemies.Count;
+                    //sp.SpawnEnemies();
+                    //EnemiesCount += sp.Enemies.Count;
                 }
                 WaveCounter += 1;
-                OnGamePeriodChange();
+                for (int i = 0; i < Mathf.Clamp(WaveCounter, 0, 4); ++i)
+                {
+
+                    SpawnPoints[i].SpawnEnemies();
+                }
+                EnemiesCount = WaveCounter*8;
                 _soundMuteTimer = 0.0f;
                 _changeSoundFlag = true;
                 _muteSoundPhase = true;
@@ -151,7 +157,7 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            if(EnemiesCount == 0)
+            if(EnemiesCount <= 0)
             {
                 Period = GamePeriod.Collect;
                 _collectPeriodTimer = 0.0f;
