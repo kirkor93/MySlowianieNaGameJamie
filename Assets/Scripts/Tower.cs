@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Tower : MonoBehaviour 
 {
+    public ParticleSystem ShootParticle;
+
     private float _timer = 0.0f;
 
     protected GameObject _enemy;
