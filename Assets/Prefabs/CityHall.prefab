@@ -444,7 +444,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 499542}
-  - 114: {fileID: 11464360}
   m_Layer: 0
   m_Name: HpBar
   m_TagString: Untagged
@@ -574,7 +573,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165644}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -.430000007}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 499542}
@@ -1897,19 +1896,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
---- !u!114 &11464360
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 188582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c706608115aff244595e77f9712b49e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RotateZ: 0
-  cameraTransform: {fileID: 0}
 --- !u!114 &11485316
 MonoBehaviour:
   m_ObjectHideFlags: 1
