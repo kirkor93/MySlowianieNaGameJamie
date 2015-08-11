@@ -38,7 +38,8 @@ public class HUDScript : MonoBehaviour
     {
         if(GameManager.Instance.Period == GamePeriod.Defense)
         {
-            return "00:00";
+            //So if there is no time left then we want to display how many enemies left
+            return GameManager.Instance.EnemiesCount.ToString();
         }
         float timeLeft = GameManager.Instance.TimeLeft;
         int minutes = (int)(timeLeft / 60.0f);
@@ -60,6 +61,6 @@ public class HUDScript : MonoBehaviour
 
     void OnGamePeriodChange()
     {
-        gameObject.SetActive(GameManager.Instance.Period == GamePeriod.Collect);
+        //gameObject.SetActive(GameManager.Instance.Period == GamePeriod.Collect);
     }
 }

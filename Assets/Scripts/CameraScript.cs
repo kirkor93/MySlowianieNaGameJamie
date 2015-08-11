@@ -17,12 +17,14 @@ public class CameraScript : MonoBehaviour
     protected bool _isAttack = false;
     protected float _attackTimer = 0.0f;
     protected Vector3 _centerRightBeforeAttack;
+    protected Quaternion _rotationRightBeforeAttack;
 
     void Awake()
     {
         Invoke("CalculatePlayers", 0.5f);
         StartCoroutine(MyUpdate());
         _camera = GetComponent<Camera>();
+        _rotationRightBeforeAttack = transform.rotation;
         GameManager.Instance.OnGamePeriodChange += OnGamePeriodChange;
     }
 
@@ -74,6 +76,7 @@ public class CameraScript : MonoBehaviour
             {
                 _attackTimer += 2.0f * Time.deltaTime;
                 transform.position = Vector3.Lerp(_centerRightBeforeAttack, PositionWhenAttackPeriod.position, _attackTimer);
+                transform.rotation = Quaternion.Lerp(_rotationRightBeforeAttack, PositionWhenAttackPeriod.rotation, _attackTimer);
             }
             yield return null;
         }
@@ -86,6 +89,11 @@ public class CameraScript : MonoBehaviour
         {
             _attackTimer = 0.0f;
             _centerRightBeforeAttack = transform.position;
+            _rotationRightBeforeAttack = transform.rotation;
+        }
+        else
+        {
+            transform.rotation = _rotationRightBeforeAttack;
         }
     }
 }

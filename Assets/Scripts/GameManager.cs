@@ -148,7 +148,7 @@ public class GameManager : Singleton<GameManager>
 
                     SpawnPoints[i].SpawnEnemies();
                 }
-                EnemiesCount = WaveCounter*8;
+                EnemiesCount = WaveCounter * 8;
                 _soundMuteTimer = 0.0f;
                 _changeSoundFlag = true;
                 _muteSoundPhase = true;
@@ -159,17 +159,23 @@ public class GameManager : Singleton<GameManager>
         {
             if(EnemiesCount <= 0)
             {
-                Period = GamePeriod.Collect;
-                _collectPeriodTimer = 0.0f;
-                OnGamePeriodChange();
-                _soundMuteTimer = 0.0f;
-                _changeSoundFlag = true;
-                _muteSoundPhase = true;
-                _baseVolume -= 0.2f;
+                StartCoroutine(ChangeToCollect());
             }
         }
     }
 
+    IEnumerator ChangeToCollect()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        Period = GamePeriod.Collect;
+        _collectPeriodTimer = 0.0f;
+        OnGamePeriodChange();
+        _soundMuteTimer = 0.0f;
+        _changeSoundFlag = true;
+        _muteSoundPhase = true;
+        _baseVolume -= 0.2f;
+    }
 }
 
 public enum GamePeriod
